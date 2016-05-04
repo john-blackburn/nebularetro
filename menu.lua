@@ -319,7 +319,7 @@ function menu_options(self,event)
         m1:addEventListener(Event.MOUSE_DOWN,controls_set,m1)
       end
 
--- disable portrain for now (and hence level edit)
+-- disable portrait for now (and hence level edit)
 --      m2:addEventListener(Event.MOUSE_DOWN,options_landscape,m2)
       m3:addEventListener(Event.MOUSE_DOWN,options_music,m3)
       m4:addEventListener(Event.MOUSE_DOWN,options_fx,m4)

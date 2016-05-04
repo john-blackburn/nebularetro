@@ -1,0 +1,339 @@
+difference with free version
+
+free version:
+nlevels=10
+
+paid version;
+	 popup({"Really create new","level?"},{"Yes","No"},{newlevel,nil})
+free version:
+	 popup({"You can only create new","levels in the full version","Available from all good","app stores!",
+	       "Search for 'Nebula Retro'"},{"OK"},{nil})
+
+free version:
+     elseif (level==8) then
+	 sign=display.newImage("sign.png",260,90)
+
+(last sign)
+
+
+free version:
+in options_manage
+
+      if ipos==8 then
+	 menu:addChild(display.newRect(280,40,255,0,0))
+	 num=menu:getNumChildren()
+	 menu:addChild(TextField.new(myfont,"More levels in full version!"))
+	 menu:getChildAt(num):setPosition(160,150)
+	 menu:getChildAt(num+1):setPosition(50,160)
+      end
+
+just before
+ 
+    kill=display.newImage("x.png",30,440)
+
+
+free version:
+function menu_credits(self,event)
+
+   if self:hitTestPoint(event.x,event.y) then
+
+      application:openUrl("http://play.google.com/store/apps/details?id=com.simpleinteractive.nebula")
+
+   end
+end
+
+free version:
+      menu:addChild(TextField.new(myfont,"OPTIONS"))
+      menu:addChild(TextField.new(myfont,"GET FULL VERSION!"))
+
+
+================================================================================
+
+AndroidManifest.xml (full version)
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.simpleinteractive.nebula"
+      android:versionCode="4"
+      android:versionName="1.3"
+      android:installLocation="preferExternal">
+    <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-feature android:glEsVersion="0x00010001" />
+    <supports-screens android:largeScreens="true"
+                      android:smallScreens="true"
+                      android:normalScreens="true"
+                      android:xlargeScreens="true"
+                      android:anyDensity="true"/>
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        <activity android:label="@string/app_name" android:name="com.giderosmobile.android.nebulaActivity" android:screenOrientation="portrait" android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
+
+
+=================================
+
+Notes for release iOS v1.2.
+
+2013.09.1
+
+Marketing URL (for Apple and Google):
+http://NebulaRetro.com/marketing-resources/
+
+website link
+http://NebulaRetro.com/
+
+Please continue to upload versions to TestFlight until we get it perfect.
+
+Once it's ABSOLUTELY PERFECT (including iOS7 status-bar-HIDING), and we both agree that everything has been quadruple-checked and is perfect, then, AND ONLY THEN,... 
+
+please rename the final, perfect version "2" and upload it to the app shops while ensuring that the Marketing URL (http://NebulaRetro.com/marketing-resources/) is correctly uploaded, the (Customer) Support URL is correctly uploaded (http://NebulaRetro.com/), the email addresses are included (as follows) and tell Apple & Google that one of us will always be on standby if they need anything because you and I are in different timezones:
+
+Hotline to supply to ONLY to APPLE, so they can get a priority response when they need to contact us:
+Hotline.for.Apple739845@NebulaRetro.com
+
+Hotline to supply ONLY to GOOGLE, so they can get a priority response when they need to contact us:
+Hotline.for.Google794614@NebulaRetro.com
+
+For our customers:
+support64ZX369gg097h@NebulaRetro.com
+
+Facebook password s4987r0sjr938j439j. nebularetro@gmail.com
+
+Just for our usage: NebulaRetro@gmail.com, password secure8394hf9pzqm8273h9158
+
+, the app name is indeed "Nebula Retro", the PRICE is Tier One Pricing (and the price is the same on both Apple and Google), the app is set to IMMEDIATE RELEASE on both Apple and Google, and everything is carefully double-checked and executed perfectly.
+
+I'll be on stand-by if you need anything.
+
+We only get one chance.
+Please remember everything and triple-check everything.
+
+Thanks, mate. I'm relying on you.kkkk
+
+BLURB ==========================================
+
+It's a game you can play with one hand or two
+And it plays like a stirring dream.
+BLOCKMAN retrieves the Pearls of Blockoo
+And evades the Scoundrels of Freem.
+
+It grows more engaging the more that you play
+You'll be glad you bought it, for sure.
+If you feel in high spirits and want a fun day,
+Please purchase our app from this store.
+
+BLOCKMAN gains leverage by
+Wall-clinging with attractions electro
+For the price of one beverage, why,
+Please consider NEBULA RETRO!
+
+Nebula Retro includes customisable controls. After choosing one of the default styles, individual buttons can be repositioned however you like.
+
+The included control styles are:
+
+• Classic Nebula Retro 4-button mode for one hand or two, wherein one button is used at once.
+
+• The standard 3-button mode that everyone is used to (directional buttons on the left, jump button on the right), for use with two hands. In this case, two buttons can be used simultaneously.
+
+Nebula Retro is an unearthly caper with a stylish space-age theme and cool music! It is an escapade in the tradition of ZX Spectrum and Commodore 64 games from the golden age of the '80s! The simplicity of Nebula Retro belies a sophisticated physics engine, super-smooth animation and pixel-perfect touch controls, making the game enjoyable and satisfying -- the perfect recipe for casual play!
+
+Levels are fully editable: as soon as you beat a level, you can edit it. If you finish the game (Good luck to you!), you can add your own levels too. There is no limitation. Nebula Retro is almost infinitely expandable. In future updates we will add more levels and provide ways to share levels with your friends.
+
+Game Features:
+
+* 26 built-in levels (+ see below)
+* Realistic physics engine
+* Squash baddies with falling crates
+* Antigravity & Rocket boost
+* Touch-sensitive platforms
+* Edit existing levels, once conquered, and design new ones
+* Three graphics modes: Space, Xmas and 8-bit
+* 4 ambient/techno soundtracks for a cool, spacey feeling!
+
+v.1.2.1 for IPA
+
+========================
+
+MACINCLOUD
+
+Your server name  is: EU147
+
+Your Mac username is: user6601
+
+Your Mac  password is: pas80465
+
+Please download your MacinCloud connection files from the following link: http://www.macincloud.com/images/MacinCloud_Lion_EU147.zip
+
+You may  also use Google Chrome to connect using BrowserConnect with this page:  http://www.macincloud.com/member-area/browserconnect
+
+ You can manage your subscription using the following link: https://macincloud.recurly.com/account/658bd7790055c13bd7b9fed9024e6ccb
+
+
+============================
+
+Marketing request to Amazon
+
+Nebula Retro is an old fashioned, highly polished and simple-to-play platform game reminiscent of the glory days of the Commodore 64, ZX Spectrum and NES. The game will appeal particularly to people who remember those days when games where quick to learn, very enjoyable, very smooth, completely bullet proof (no bugs) and running at full 60 fps. I also think children and young gamers will enjoy the game as it is easy to learn and levels are small with good progression of difficulty.
+
+Nebula Retro is a classy, colourful touch-operated platform game and looks superb on the Kindle Fire screen. It is easy to pick up but hard to put down with very smooth, fluid play. Controls are precise and highly configurable, you can play with 3 or 4 buttons (i.e. one jump button, or two directional ones) and reposition controls manually. You can also play in portrait (single screen) or landscape mode (scrolling). The former is most "retro" and looks great on the Kindle Fire's large screen. The game also comes with a level editor which works well on the Kindle Fire and other tablets. Nebula Retro is a great showcase for the gaming prowess of the Kindle Fire/HD/HDX tablets.
+
+Nebula Retro has been continuously improved over many iterations on the Amazon App Store. We have remained loyal to customers always giving more. Please see out marketing website here for more info and resources: http://nebularetro.com/marketing-resources/
+
+=============================
+
+Review request
+
+Dear Sir or Madam
+
+I am writing to you to tell you about our great new game, Nebula Retro available on iOS and Android. Nebula Retro is an old fashioned, highly polished and simple-to-play platform game reminiscent of the glory days of the Commodore 64, ZX Spectrum and NES. Nebula's simplicity belies a sophisticated physics engine, super smooth animation and pixel-perfect touch controls, making the game enjoyable and satisfying -- the perfect recipe for casual play!
+
+The game is highly configurable: you can play with either 3 or 4 buttons (single jump button or two directional ones) and can move the controls manually to preferred positions. You can also play in landscape mode (scrolling) or portrait mode. The latter is more retro and works best on tablet devices.
+
+Levels are fully editable: as soon as you complete a level, you can edit it. You can add your own levels too without limit, making Nebula almost infinitely expandable. In future updates we will add more levels and provide ways to share levels with your friends.
+
+Game Features:
+
+    * Play landscape (scrolling) or portrait mode
+    * 26 built-in levels (+ add your own!)
+    * Realistic physics engine
+    * Squash baddies with falling crates
+    * Anti gravity & Rocket boost
+    * Touch sensitive platforms
+    * Edit existing levels and add new ones
+    * Three graphics modes, Space, Xmas and 8 bit.
+    * 4 ambient/techno soundtracks for a cool, spacey feeling!
+
+I would be most pleased if you could review or feature this game in your [magazine|website]. I think this game will be of great interest to your readers. If you need any further information please do not hesitate to contact me
+
+Google Play:
+https://play.google.com/store/apps/details?id=com.simpleinteractive.nebulafree
+
+Apple App Store:
+https://itunes.apple.com/gb/app/nebula-retro/id730484292?mt=8
+
+website link
+http://NebulaRetro.com/
+
+Marketing URL:
+http://NebulaRetro.com/marketing-resources/
+
+Best regards,
+
+John Blackburn
+
+screenshots
+https://www.dropbox.com/sh/6bn70zatm2n72t7/vB4vjNv5hj
+
+PC download
+https://www.dropbox.com/s/or89gadmw53p1w2/NebulaRetroSetup10.exe
+
+=======================================================
+
+Set up Google PLUS.
+Set up Twitter account.
+
+Review sites tried:
+android central
+android tapp
+android police
+http://www.androidworld.it/info/ (Italian)
+http://www.tuttoandroid.net      (Italian)
+Touch Arcade
+http://pockett.net (french)
+148apps
+android rundown
+
+bishops wood hospital
+
+
+Gmail:
+NebulaRetro (@gmail.com)
+secure8394hf9pzqm8273h9158
+
+
+Twitter:
+NebulaRetro@gmail.com
+twittle932i726hlq8ft9
+
+
+Facebook:
+NebulaRetro@gmail.com
+s4987r0sjr938j439j
+
+lone worker form
+vdu
+
+submit abstracts         Dec 15
+submit papers (may not need second stage)
+
+
+
+early registration       31 March
+registration deadline     1 April
+22-24 April Dielectrics 2015
+
+Kickstarter campaign to bring Windows Phone 8 and Windows Store to Gideros Studio
+
+What is Gideros?
+
+Gideros Studio is a Lua-based, cross platform game engine allowing easy creation of apps and currently
+supporting iOS and Android. Launched in 2011, Gideros has become one of the most succcessful SDK's
+with [xx] developers registered and [xx] games published. Several Gideros games have achieved best
+seller status including [xxx].
+
+What are we offering?
+
+Gideros currently supports iOS and Android targets. This kickstarter campagin will add support for ALL
+of Microsoft's technologies including classic Windows desktop, Windows Phone 8 and Windows Store (Metro) apps.
+With a single click,
+Gideros users will be able to export existing and new apps to these targets, alongside their exisitng
+iOS and Android games. Thus, Gideros users will write apps
+once in Lua and export to 5 targets (iOS, Android, WP8, Windows Store, Windows Desktop).
+
+The benefits of these new targets are significant. Windows Desktop is the world's foremost OS installed
+(as Windows XP, 7, 8) in nearly 1 billion PCs. The PC games market is lucrative and there hasn't seen
+the "race to the bottom" seen on mobile. PC games can be sold at reasonable prices allowing profit to be made
+without the use of in-game adverts or IAP.
+
+WP8 on mobile phones, is now taking significant market 
+share especially in Europe where it is now the fastest growing mobile phone OS. It has 18% market share
+in Italy and 10% in the UK.
+[http://www.wpcentral.com/windows-phone-remains-fastest-growing-mobile-os-europe]
+[http://www.wpcentral.com/windows-phone-gains-europe-loses-asia]
+More importantly than market share, however, WP8 has proved a lucrative market for Indie
+deveopers with some reporting 100x more downloads from WP8 than from IOS or Android! It seems
+the WP8 market is not oversaturated with apps and, unlike iOS and Android, there is good discoverability.
+In fact, there is a comparative shortage of apps and millions of users waiting for the next big thing!
+
+It's the same story for the Windows Store. Windows 8 was launched in 2012 and 90% of new PCs now come
+with Windows 8 preloaded. Each Windows 8 PC comes with the Windows Store from which users can conveniently 
+download immersive, touch-enabled Metro-style apps which run on desktops, laptops and tablets 
+(either x86/x64 or ARM).
+Windows Store is an indy dev's paradise since there are millions of users
+and comparatively few apps. The lack of apps is especially acute for Windows RT tablets (Eg Microsoft Surface)
+which can
+only run Metro apps from the Windows store. These users are crying out for engaging apps on the Windows Store.
+
+for the modest target of on $3k, Gideros will add these 3 new targets bringing Gideros dev's apps
+to huge new audiences.
+
+How we are going to do it?
+
+Currently, Gideros uses the OpenGL graphics library which is present on Android and iOS. However, WP8 and
+metro apps use DirectX instead. Therefore the first task is to add a graphics layer to Gideros so either
+graphics library can be called as needed. We will also investigate the best way to play sounds (possibly using either
+XAudio2 or FMOD) and how to handle events using the new WinRT runtime.
+
+For Windows Desktop we will write
+a simple main program based on the Win32 API. For desktop, new Lua commands will be added to resize the window. 
+In all the new targets we will add advertising, IAP and social media support.
+Note that we do not intend to support native widgets in any of these new targets. The aim is to play Gideros apps just as they
+appear in the existing Android and iOS versions.
+
+

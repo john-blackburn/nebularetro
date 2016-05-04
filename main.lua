@@ -1,13 +1,21 @@
 -- GIDEROS version
 -- edited with emacs
--- Runs on gideros 2015.09
+-- Runs on gideros 2016.4
 
--- This version is landscape only and landscape/portrait option has been disabled
+-- Currently when running on Windows (desktop) the game is landscape only
+-- (hence no level editting)
+-- and landscape/portrait option has been disabled
 -- see
 --      m2:addEventListener(Event.MOUSE_DOWN,options_landscape,m2) (menu.lua)
 -- Also if "Windows" OS then we disable soft controls and there is
 -- a Redefine Keys menu instead of Adjust Controls
--- For now osname is forced to "Windows" for this reason
+-- We should check for all desktop types not just Windows
+-- by desktop I mean devices with physical keyboards which are landscape only
+-- (Windows, Mac, HTML5 - presumably this is "desktop")
+
+-- Later need to fix this so that we can switch between portrait
+-- and landscape in Windows by changing the window size/shape
+-- currently not supported in Gideros (fix it!)
 
 --myfont=Font.new("zxspectr.txt","zxspectr.png",true)
 myfont=TTFont.new("zxspectr.ttf",16,true)
@@ -18,10 +26,11 @@ osname,version,idiom,model=application:getDeviceInfo()
 print(osname,version,idiom,model) -- eg iOS 6.1.3 iPad iPad
                                   --    Android 2.3.4 nil nil
 
+osname="Windows"  -- force this for now (see above)
+print("Forced to: ",osname)
+
 function print()
 end
-
-osname="Windows"  -- force this for now
 
 local display=require("display")
 require("box2d")
@@ -57,7 +66,7 @@ zoomedOut=nil
 x0,y0=nil,nil
 zoom_note=nil
 
-multitouch=true
+multitouch=true         -- should always be true
 threebutton=false
 readsign=false
 playing=false
@@ -87,7 +96,7 @@ local collected,leveltxt
 
 local edit=false
 
-screenw=320
+screenw=320      -- logical dimensions
 screenh=480
 
 leftpressed=false

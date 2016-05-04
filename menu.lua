@@ -2,7 +2,7 @@
 -- Menu system
 ----------------------------------------------------------------------
 
-local landscape_menu=true
+local landscape_menu=true   -- should always be true
 
 local ipos=-4
 local time=0.7
@@ -319,8 +319,8 @@ function menu_options(self,event)
         m1:addEventListener(Event.MOUSE_DOWN,controls_set,m1)
       end
 
--- disable portrait for now (and hence level edit)
---      m2:addEventListener(Event.MOUSE_DOWN,options_landscape,m2)
+-- In Windows, disable portrait for now (and hence level edit)
+      if osname~="Windows" then m2:addEventListener(Event.MOUSE_DOWN,options_landscape,m2) end
       m3:addEventListener(Event.MOUSE_DOWN,options_music,m3)
       m4:addEventListener(Event.MOUSE_DOWN,options_fx,m4)
       m5:addEventListener(Event.MOUSE_DOWN,options_manage,m5)
@@ -415,7 +415,7 @@ function options_landscape(self,event)
 
       if (landscape) then
          application:setOrientation(Application.PORTRAIT)
-	 application:setWindowSize(320,480)
+	 if osname=="Windows" then application:setWindowSize(320,480) end
 	 landscape=false
 	 scrolling=false
 	 menu:getChildAt(noptions+2):setText("PORTRAIT")
@@ -428,7 +428,7 @@ function options_landscape(self,event)
 
       else
          application:setOrientation(Application.LANDSCAPE_LEFT)
-	 application:setWindowSize(640,960)
+	 if osname=="Windows" then application:setWindowSize(640,960) end
 	 landscape=true
 	 scrolling=true
 	 menu:getChildAt(noptions+2):setText("LANDSCAPE")
@@ -1819,11 +1819,11 @@ function readconfig(fh)
    if landscape then 
       scrolling=true 
       application:setOrientation(Application.LANDSCAPE_LEFT)
-      application:setWindowSize(640,960)
+      if osname=="Windows" then application:setWindowSize(640,960) end
    else
       scrolling=false
       application:setOrientation(Application.PORTRAIT)
-      application:setWindowSize(320,480)
+      if osname=="Windows" then application:setWindowSize(320,480) end
    end
 
    local x1,y1,x2,y2,x3,y3,x4,y4

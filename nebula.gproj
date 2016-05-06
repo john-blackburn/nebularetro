@@ -1,7 +1,7 @@
 <project>
- <properties orientation="1" osx_category="5" iosDevice="0" winrt_org="SimpleInteractive" logicalHeight="480" version="1.0" windowHeight="960" app_icon="" mouseTouchOrder="0" architecture="4" touchToMouse="1" encryptCode="0" version_code="1" osx_domain="giderosmobile.com" osx_bundle="com.yourdomain." encryptAssets="0" html5_host="" html5_mem="256" logicalWidth="320" android_template="0" scaleMode="3" fps="60" win_org="SimpleInteractive" app_icon_noexport="0" windowWidth="640" mouseToTouch="1" ios_bundle="com.yourdomain." winrt_package="com.simpleinteractive.nebula" autorotation="0" packageName="com.simpleinteractive.nebula" win_domain="giderosmobile.com" retinaDisplay="3" assetsOnly="0" osx_org="GiderosMobile">
+ <properties osx_bundle="com.yourdomain." html5_mem="256" mouseToTouch="1" winrt_package="com.simpleinteractive.nebula" version_code="1" windowHeight="960" ios_bundle="com.yourdomain." architecture="2" android_template="0" app_icon="" windowWidth="640" autorotation="0" logicalWidth="320" assetsOnly="0" fps="60" mouseTouchOrder="0" iosDevice="0" win_domain="giderosmobile.com" version="1.0" winrt_org="SimpleInteractive" html5_host="" encryptCode="0" orientation="1" logicalHeight="480" osx_domain="giderosmobile.com" packageName="com.simpleinteractive.nebula" osx_category="5" retinaDisplay="3" osx_org="GiderosMobile" scaleMode="3" app_icon_noexport="0" win_org="SimpleInteractive" encryptAssets="0" touchToMouse="1">
   <imageScales>
-   <scale suffix="@2x" scale="2"/>
+   <scale scale="2" suffix="@2x"/>
   </imageScales>
   <plugins/>
   <exports>
@@ -18,6 +18,8 @@
    </export>
   </exports>
  </properties>
+ <file source="zxspectr.txt"/>
+ <file source="zxspectr.png"/>
  <file source="Got-it@2x.png"/>
  <file source="Got-it.png"/>
  <file source="SIGN-UNDERLAY@2x.png"/>

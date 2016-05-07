@@ -554,17 +554,17 @@ function set_controls_ht()
    if controls_ht=="mid" then
       if landscape then
 	 if threebutton then
-	    lbutton:setX(60)
-	    rbutton:setX(60)
+	    lbutton:setY(260)
+	    rbutton:setY(260)
 	    
-	    ljbutton:setX(60)
-	    rjbutton:setX(60)
+	    ljbutton:setY(260)
+	    rjbutton:setY(260)
 	 else
-	    lbutton:setX(60)
-	    rbutton:setX(60)
+	    lbutton:setY(260)
+	    rbutton:setY(260)
 	    
-	    ljbutton:setX(160)
-	    rjbutton:setX(160)
+	    ljbutton:setY(160)
+	    rjbutton:setY(160)
 	 end
       else
 	 if threebutton then
@@ -582,17 +582,17 @@ function set_controls_ht()
    elseif controls_ht=="up" then
       if landscape then
 	 if threebutton then
-	    lbutton:setX(80)
-	    rbutton:setX(80)
+	    lbutton:setY(240)
+	    rbutton:setY(240)
 	    
-	    ljbutton:setX(80)
-	    rjbutton:setX(80)
+	    ljbutton:setY(240)
+	    rjbutton:setY(240)
 	 else
-	    lbutton:setX(80)
-	    rbutton:setX(80)
+	    lbutton:setY(240)
+	    rbutton:setY(240)
 	    
-	    ljbutton:setX(180)
-	    rjbutton:setX(180)
+	    ljbutton:setY(140)
+	    rjbutton:setY(140)
 	 end
       else
 	 if threebutton then
@@ -610,17 +610,17 @@ function set_controls_ht()
    else
       if landscape then
 	 if threebutton then
-	    lbutton:setX(40)
-	    rbutton:setX(40)
+	    lbutton:setY(280)
+	    rbutton:setY(280)
 	    
-	    ljbutton:setX(40)
-	    rjbutton:setX(40)
+	    ljbutton:setY(280)
+	    rjbutton:setY(280)
 	 else
-	    lbutton:setX(40)
-	    rbutton:setX(40)
+	    lbutton:setY(280)
+	    rbutton:setY(280)
 	    
-	    ljbutton:setX(140)
-	    rjbutton:setX(140)
+	    ljbutton:setY(180)
+	    rjbutton:setY(180)
 	 end
       else
 	 if threebutton then
@@ -665,15 +665,15 @@ function set_controls()
    if controls=="right" then
       if landscape then
 	 if threebutton then
-	    lbutton:setY(340)
-	    ljbutton:setY(40)
-	    rbutton:setY(440)
-	    rjbutton:setY(40)
+	    lbutton:setX(340)
+	    ljbutton:setX(40)
+	    rbutton:setX(440)
+	    rjbutton:setX(40)
 	 else
-	    lbutton:setY(340)
-	    ljbutton:setY(340)
-	    rbutton:setY(440)
-	    rjbutton:setY(440)
+	    lbutton:setX(340)
+	    ljbutton:setX(340)
+	    rbutton:setX(440)
+	    rjbutton:setX(440)
 	 end
       else
 	 if threebutton then
@@ -691,15 +691,15 @@ function set_controls()
    elseif controls=="split" then
       if landscape then
 	 if threebutton then
-	    lbutton:setY(40)
-	    ljbutton:setY(340)
-	    rbutton:setY(340)
-	    rjbutton:setY(440)
+	    lbutton:setX(40)
+	    ljbutton:setX(340)
+	    rbutton:setX(340)
+	    rjbutton:setX(440)
 	 else
-	    lbutton:setY(40)
-	    ljbutton:setY(40)
-	    rbutton:setY(440)
-	    rjbutton:setY(440)
+	    lbutton:setX(40)
+	    ljbutton:setX(40)
+	    rbutton:setX(440)
+	    rjbutton:setX(440)
 	 end
       else
 	 if threebutton then
@@ -718,15 +718,15 @@ function set_controls()
    else       -- left
       if landscape then
 	 if threebutton then
-	    lbutton:setY(40)
-	    ljbutton:setY(screenh-40)
-	    rbutton:setY(140)
-	    rjbutton:setY(screenh-40)
+	    lbutton:setX(40)
+	    ljbutton:setX(440)
+	    rbutton:setX(140)
+	    rjbutton:setX(440)
 	 else
-	    lbutton:setY(40)
-	    ljbutton:setY(40)
-	    rbutton:setY(140)
-	    rjbutton:setY(140)
+	    lbutton:setX(40)
+	    ljbutton:setX(40)
+	    rbutton:setX(140)
+	    rjbutton:setX(140)
 	 end
       else
 	 if threebutton then
@@ -744,28 +744,16 @@ function set_controls()
 
    end
 
-   if landscape then
-      lbutton:setRotation(0)
-      rbutton:setRotation(0)
-      ljbutton:setRotation(0)
+   lbutton:setRotation(0)
+   rbutton:setRotation(0)
+   ljbutton:setRotation(0)
 
-      if threebutton then
-	 rjbutton:setRotation(45)
-      else
-	 rjbutton:setRotation(90)
-      end
-	 
+   if threebutton then
+     rjbutton:setRotation(-45)
    else
-      lbutton:setRotation(0)
-      rbutton:setRotation(0)
-      ljbutton:setRotation(0)
-
-      if threebutton then
-	 rjbutton:setRotation(-45)
-      else
-	 rjbutton:setRotation(0)
-      end
+     rjbutton:setRotation(0)
    end
+
 end
 
 function options_music(self,event)
@@ -829,7 +817,7 @@ function controls_set(self,event)
       stage:addChild(menu)
 
       if landscape then
-	 GTween.new(ego,0.5,{x=30,y=240})
+	 GTween.new(ego,0.5,{x=440,y=40})
       else
 	 GTween.new(ego,0.5,{x=290,y=80})
       end
@@ -846,15 +834,13 @@ function controls_set(self,event)
 
       if landscape then
 	 for i=1,4 do
-	    menu:getChildAt(i):setPosition(screenw-i*20,10)
+	    menu:getChildAt(i):setPosition(10,i*20)
 	    menu:getChildAt(i):setTextColor(0x000000)
-	    menu:getChildAt(i):setRotation(90)
 	 end
 	 
 	 for i=1,4 do
-	    menu:getChildAt(i+4):setPosition(screenw-i*20-2,12)
+	    menu:getChildAt(i+4):setPosition(12,i*20-2)
 	    menu:getChildAt(i+4):setTextColor(0xffffff)
-	    menu:getChildAt(i+4):setRotation(90)
 	 end
       else
 	 for i=1,4 do
@@ -877,13 +863,9 @@ function controls_set(self,event)
       menu:addChild(button3)
 
       if landscape then
-	 button1:setRotation(90)
-	 button2:setRotation(90)
-	 button3:setRotation(90)
-
-	 button1:setPosition(300,400)
-	 button2:setPosition(260,400)
-	 button3:setPosition(220,400)
+	 button1:setPosition(60,110)
+	 button2:setPosition(160,110)
+	 button3:setPosition(260,110)
       else
 	 button1:setPosition(60,130)
 	 button2:setPosition(160,130)
@@ -939,7 +921,7 @@ function controls_set(self,event)
       ljbutton:addEventListener(Event.MOUSE_UP,dragControlUp,ljbutton)
 
       if (landscape) then
-	 kill=display.newImage("x.png",255,300)
+	 kill=display.newImage("x.png",440,90)
       else
 	 kill=display.newImage("x.png",300,40)
       end

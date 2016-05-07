@@ -26,8 +26,8 @@ osname,version,idiom,model=application:getDeviceInfo()
 print(osname,version,idiom,model) -- eg iOS 6.1.3 iPad iPad
                                   --    Android 2.3.4 nil nil
 
-osname="Android"  -- force this for now (see above)
-print("Forced to: ",osname)
+--osname="Android"  -- force this for now (see above)
+--print("Forced to: ",osname)
 
 function print()
 end

@@ -356,7 +356,12 @@ function redefine_keys(self,event)
       menu=Sprite.new()
       menu.name="redefine_keys"
       stage:addChild(menu)
-      menu:setPosition(240,160)
+
+      if landscape then
+        menu:setPosition(240,160)
+      else
+        menu:setPosition(160,240)
+      end
 
       local m1=Sprite.new()
       m1:setPosition(0,-40)
@@ -389,6 +394,8 @@ function redefine_keys(self,event)
       m3:getChildAt(2):setTextColor(0xFFFFFF)
 
       kill=display.newImage("x.png",30,300)
+      if not landscape then kill:setY(440) end
+
       kill:addEventListener(Event.MOUSE_DOWN,menu_options,kill)
 
       if landscape and landscape_menu then

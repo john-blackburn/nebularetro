@@ -274,7 +274,7 @@ function menu_options(self,event)
 	 menu:addChild(display.newGradRect(280,40, 255,0,0))
       end
 
-      if string.sub(osname,1,7)=="Windows" then
+      if string.sub(osname,1,7)=="Windows" or osname=="Win32" then
          menu:addChild(vtext(myfont,"REDEFINE KEYS"))
       else
          menu:addChild(vtext(myfont,"ADJUST CONTROLS"))
@@ -313,7 +313,7 @@ function menu_options(self,event)
 
 --      m1:addEventListener(Event.MOUSE_DOWN,options_controls,m1)
 
-      if string.sub(osname,1,7)=="Windows" then
+      if string.sub(osname,1,7)=="Windows" or osname=="Win32" then
         m1:addEventListener(Event.MOUSE_DOWN,redefine_keys,m1)
       else
         m1:addEventListener(Event.MOUSE_DOWN,controls_set,m1)
@@ -421,7 +421,7 @@ function options_landscape(self,event)
 
       if (landscape) then
          application:setOrientation(Application.PORTRAIT)
-	 if osname=="Windows" then application:setWindowSize(320,480) end
+	 if osname=="Windows" or osname=="Win32" then application:setWindowSize(320,480) end
 	 landscape=false
 	 scrolling=false
 	 menu:getChildAt(noptions+2):setText("PORTRAIT")
@@ -434,7 +434,7 @@ function options_landscape(self,event)
 
       else
          application:setOrientation(Application.LANDSCAPE_LEFT)
-	 if osname=="Windows" then application:setWindowSize(640,960) end
+	 if osname=="Windows" or osname=="Win32" then application:setWindowSize(640,960) end
 	 landscape=true
 	 scrolling=true
 	 menu:getChildAt(noptions+2):setText("LANDSCAPE")
@@ -1807,11 +1807,11 @@ function readconfig(fh)
    if landscape then 
       scrolling=true 
       application:setOrientation(Application.LANDSCAPE_LEFT)
-      if osname=="Windows" then application:setWindowSize(640,960) end
+      if osname=="Windows" or osname=="Win32" then application:setWindowSize(640,960) end
    else
       scrolling=false
       application:setOrientation(Application.PORTRAIT)
-      if osname=="Windows" then application:setWindowSize(320,480) end
+      if osname=="Windows" or osname=="Win32" then application:setWindowSize(320,480) end
    end
 
    local x1,y1,x2,y2,x3,y3,x4,y4

@@ -3300,7 +3300,7 @@ function gtouchDOWN(type,event)
    end
 
    print ("os name=",osname)
-   if string.sub(osname,1,7)=="Windows" then   -- windows, so no touch controls
+   if string.sub(osname,1,7)=="Windows" or osname=="Win32" then   -- windows, so no touch controls
       print ("early return")
       return
    end
@@ -3394,7 +3394,7 @@ function MtouchDOWN(type,event)
       return
    end
 
-   if string.sub(osname,1,7)=="Windows" then   -- windows, so no touch controls
+   if string.sub(osname,1,7)=="Windows" or osname=="Win32" then   -- windows, so no touch controls
       return
    end
 
@@ -3480,7 +3480,7 @@ function main()
    ljbutton=display.newImage("upleft.png")
    rjbutton=display.newImage("upright.png")
 
-   if osname=="Windows" then
+   if osname=="Windows" or osname=="Win32" then
      lbutton:setAlpha(0)
      rbutton:setAlpha(0)
      ljbutton:setAlpha(0)

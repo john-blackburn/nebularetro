@@ -1,7 +1,7 @@
 <project>
- <properties osx_bundle="com.yourdomain." winrt_org="SimpleInteractive" windowHeight="960" osx_category="5" fps="60" encryptAssets="0" version="1.0" iosDevice="0" logicalHeight="480" osx_org="GiderosMobile" app_icon="" encryptCode="0" version_code="1" winrt_package="com.simpleinteractive.nebula" architecture="7" touchToMouse="1" packageName="com.simpleinteractive.nebula" win_domain="giderosmobile.com" html5_mem="256" mouseTouchOrder="0" windowWidth="640" app_icon_noexport="0" scaleMode="3" win_org="SimpleInteractive" android_template="0" retinaDisplay="3" logicalWidth="320" osx_domain="giderosmobile.com" html5_host="" autorotation="0" mouseToTouch="1" orientation="1" assetsOnly="0" ios_bundle="com.yourdomain.">
+ <properties win_domain="giderosmobile.com" encryptAssets="0" retinaDisplay="3" version_code="1" assetsOnly="0" iosDevice="0" android_template="0" touchToMouse="1" html5_host="" orientation="1" packageName="com.simpleinteractive.nebula" html5_mem="256" mouseToTouch="1" version="1.0" winrt_package="com.simpleinteractive.nebula" windowHeight="960" architecture="6" osx_bundle="com.yourdomain." app_icon_noexport="0" osx_category="5" osx_domain="giderosmobile.com" winrt_org="SimpleInteractive" encryptCode="0" logicalWidth="320" windowWidth="640" scaleMode="3" win_org="SimpleInteractive" osx_org="GiderosMobile" fps="60" ios_bundle="com.yourdomain." app_icon="" autorotation="0" mouseTouchOrder="0" logicalHeight="480">
   <imageScales>
-   <scale suffix="@2x" scale="2"/>
+   <scale scale="2" suffix="@2x"/>
   </imageScales>
   <plugins/>
   <exports>

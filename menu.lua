@@ -1370,10 +1370,28 @@ function menu_credits(self,event)
   end
 end
 
-Button = Layout:with{
+local appW = application:getContentWidth()
+local appH = application:getContentHeight()
+
+local warning = Layout.new{
+	absX = 0, absY = 0, absW = appW, absH = appH,
+	bgrC = 0x000000, bgrA = 0.5,
+	TextField.new(myfont, "", "-"),
+}
+warning(1):setTextColor(0xFFFFFF)
+warning:addEventListener(Event.MOUSE_DOWN, warning.removeFromParent, warning)
+warning:addEventListener(Event.MOUSE_MOVE, warning.removeFromParent, warning)
+warning:addEventListener(Event.KEY_DOWN, warning.removeFromParent, warning)
+
+local function showWarning(text)
+	warning(1):setText(text)
+	stage:addChild(warning)
+end
+
+local Button = Layout:with{
 	text = "BUTTON",
-	textColor = 0x000000,
-	bgrC = 0xFF0000, bgrA = 0.5,
+	textColor = 0xFFFFFF,
+	bgrC = 0xAA0000, bgrA = 1.0,
 	sprM = Layout.FIT_HEIGHT, sprS = 0.10,
 	
 	init = function(self, p)
@@ -1386,12 +1404,39 @@ Button = Layout:with{
 		if p.text then self.textfield:setText(p.text) end
 	end,
 	
-	anPress = Layout.newAnimation(14, 7, 0.04),
-	anHover = Layout.newAnimation(14, 7, 0.02),
+	anPress = Layout.newAnimation(14, 7, 0.02),
+	anHover = Layout.newAnimation(14, 7, 0.01),
 	
 	onPress = function(self)
-		print("DOWNLOADING:", self.text)
-	end
+		local data = levman.download(self.text)
+		if data then
+			local pos = data:find";"
+			if pos then
+				local colours = data:sub(1, pos-1)
+				local level = data:sub(pos+1, -1)
+				totlevels = totlevels + 1
+				local path = "|D|level"..totlevels..".txt"
+				local file =io.open(path,"w")
+				file:write(level)
+				file:close()
+				local path = "|D|colours"..totlevels..".txt"
+				local file =io.open(path,"w")
+				file:write(colours)
+				file:close()
+				local path= "|D|config.txt"
+				local file = io.open(path,"w")
+				writeconfig(file)
+				file:close()
+				showWarning("saved as #"..totlevels)
+			else
+				showWarning(self.text.." is corrupted!")
+			end
+		else
+			showWarning "connection error!"
+		end
+	end,
+	
+	anAdd = Layout.newAnimation(40, 0, 0.1)
 }
 
 function menu_levels(self,event)
@@ -1406,27 +1451,24 @@ function menu_levels(self,event)
       kill=nil
     end
 	
-	local w = application:getContentWidth()
-	local h = application:getContentHeight()
-	
 	local count = levman.count()
-	local names = count and levman.names(1, count)
+	local MAX_NAMES_PER_REQUEST = 100
+	local names = count and levman.names(1, count, MAX_NAMES_PER_REQUEST)
 
 	if count and names then
 		local database = {}
 		for k,v in ipairs(names) do table.insert(database, {text = v}) end
-		print(require"json".encode(database))
-		
 		menu = Layout.new{
 			bgrA = 0.0, bgrC = 0xFF00FF,
-			absX = 0, absY = 0, absW = w, absH = h,
-			cellAbsH = 50, cols = 1,
-			borderW = 5, borderH = 5,
+			absX = 0, absY = 0, absW = appW, absH = appH,
+			cellAbsH = 40, cols = 1,
+			borderW = 3, borderH = 3,
 			template = Button, database = database, scroll = true,
 		}
+		Layout.select(menu)
 	else
-		menu = Pixel.new(0xFF0000, 1.0, 300, 16)
-		menu:addChild(TextField.new(myfont, "connection error!", "c|"))
+		showWarning "connection error!"
+		menu = warning
 	end
 	
 	stage:addChild(menu)

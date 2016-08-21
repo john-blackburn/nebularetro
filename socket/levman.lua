@@ -3,7 +3,7 @@ API:
 levman.host           -- [string] server host like "//localhost:80"
 levman.maxnamesize    -- [number] maximum number of bytes for level name
 levman.count()        -- get total number of levels on server
-levman.names(p1, p2)  -- get level names from p1 to p2 on server
+levman.names(p1, p2, step) -- get level names from p1 to p2 on server
 levman.download(name) -- download level data with that name
 levman.upload(name, data) -- upload level name and data
 --]]--------------------------------------------------------------------
@@ -31,6 +31,16 @@ local function trim(s)
 	return s:sub(1, -1 - #s:reverse():match" *")
 end
 
+local function extractNames(data)
+	local names = {}
+	for i = 1, #data/maxnamesize do
+		local p1 = (i - 1) * maxnamesize + 1
+		local p2 = p1 + maxnamesize - 1
+		names[i] = trim(data:sub(p1, p2))
+	end
+	return names
+end
+
 local function getLevelCount()
 	local req = "C"
 	local body, code, headers, status = http.request(host, req)
@@ -38,17 +48,24 @@ local function getLevelCount()
 	return headers.maximum
 end
 
-local function getLevelNames(p1, p2)
-	local req = "N"..encodeInt(p1)..encodeInt(p2)
-	local body, code, headers, status = http.request(host, req)
-	if not body then return nil, code end
-	local names = {}
-	for i = 1, #headers.names/maxnamesize do
-		local p1 = (i - 1) * maxnamesize + 1
-		local p2 = p1 + maxnamesize - 1
-		names[i] = trim(headers.names:sub(p1, p2))
+local function getLevelNames(p1, p2, step)
+	if step then
+		local data = {}
+		for i = p1, p2, step do
+			local j = math.min(i + step - 1, p2)
+			local req = "N"..encodeInt(i)..encodeInt(j)
+			local body, code, headers, status = http.request(host, req)
+			if not body then return nil, code end
+			table.insert(data, headers.names)
+		end
+		return extractNames(table.concat(data))
+	else
+		local req = "N"..encodeInt(p1)..encodeInt(p2)
+		local body, code, headers, status = http.request(host, req)
+		if not body then return nil, code end
+		return extractNames(headers.names)
 	end
-	return names
+	
 end
 
 local function downloadLevel(name)

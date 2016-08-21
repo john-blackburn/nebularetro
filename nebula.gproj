@@ -1,23 +1,34 @@
 <project>
- <properties win_domain="giderosmobile.com" encryptAssets="0" retinaDisplay="3" version_code="1" assetsOnly="0" iosDevice="0" android_template="0" touchToMouse="1" html5_host="" orientation="1" packageName="com.simpleinteractive.nebula" html5_mem="256" mouseToTouch="1" version="1.0" winrt_package="com.simpleinteractive.nebula" windowHeight="960" architecture="6" osx_bundle="com.yourdomain." app_icon_noexport="0" osx_category="5" osx_domain="giderosmobile.com" winrt_org="SimpleInteractive" encryptCode="0" logicalWidth="320" windowWidth="640" scaleMode="3" win_org="SimpleInteractive" osx_org="GiderosMobile" fps="60" ios_bundle="com.yourdomain." app_icon="" autorotation="0" mouseTouchOrder="0" logicalHeight="480">
+ <properties encryptCode="0" assetsOnly="0" osx_bundle="com.yourdomain." html5_host="" app_icon="" tv_icon="" osx_org="GiderosMobile" encryptAssets="0" winrt_package="com.simpleinteractive.nebula" android_template="0" version="1.0" splash_h_image="" win_org="SimpleInteractive" mouseTouchOrder="0" iosDevice="0" touchToMouse="1" windowHeight="960" architecture="6" osx_category="5" mouseToTouch="0" ios_bundle="com.yourdomain." logicalWidth="320" retinaDisplay="3" version_code="1" osx_domain="giderosmobile.com" scaleMode="3" packageName="com.simpleinteractive.nebula" orientation="1" win_domain="giderosmobile.com" html5_mem="256" splash_v_image="" windowWidth="640" winrt_org="SimpleInteractive" logicalHeight="480" autorotation="0" fps="60">
   <imageScales>
    <scale scale="2" suffix="@2x"/>
   </imageScales>
   <plugins/>
   <exports>
    <export name="APK">
-    <property value="" name="androidPath"/>
-    <property value="19" name="androidTarget"/>
-    <property value="" name="antPath"/>
-    <property value="" name="javaPath"/>
-    <property value="" name="keyAlias"/>
-    <property value="" name="keyAliasPass"/>
-    <property value="" name="keyStore"/>
-    <property value="" name="keyStorePass"/>
-    <property value="com.yourdomain.yourapp" name="packageName"/>
+    <property name="androidPath" value=""/>
+    <property name="androidTarget" value="19"/>
+    <property name="antPath" value=""/>
+    <property name="javaPath" value=""/>
+    <property name="keyAlias" value=""/>
+    <property name="keyAliasPass" value=""/>
+    <property name="keyStore" value=""/>
+    <property name="keyStorePass" value=""/>
+    <property name="packageName" value="com.yourdomain.yourapp"/>
    </export>
   </exports>
  </properties>
+ <folder name="socket">
+  <file source="socket/url.lua" excludeFromExecution="1"/>
+  <file source="socket/socket.lua" excludeFromExecution="1"/>
+  <file source="socket/mime.lua" excludeFromExecution="1"/>
+  <file source="socket/ltn12.lua" excludeFromExecution="1"/>
+  <file source="socket/levman.lua"/>
+  <file source="socket/http.lua" excludeFromExecution="1"/>
+  <file source="socket/headers.lua" excludeFromExecution="1"/>
+ </folder>
+ <file source="../layout/Layout.lua"/>
+ <folder name="levels"/>
  <file source="zxspectr.txt"/>
  <file source="zxspectr.png"/>
  <file source="Got-it@2x.png"/>

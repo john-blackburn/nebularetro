@@ -28,7 +28,7 @@ print(osname,version,idiom,model) -- eg iOS 6.1.3 iPad iPad
 --osname="Android"  -- force this for now (see above)
 --print("Forced to: ",osname)
 
---[[
+---[[
 function print()
 end
 --]]
@@ -135,6 +135,7 @@ howtoedit_tex=Texture.new("howtoedit.png",true)
 signunderlay_tex=Texture.new("SIGN-UNDERLAY.png",true)
 gotit_tex=Texture.new("Got-it.png",true)
 signtext_tex=nil
+upload_tex=Texture.new("upload.png",true)
 
 ----------------------------------------------------------------------
 -- Create ego, nebula and planet which will persist throughout game

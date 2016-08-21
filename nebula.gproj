@@ -1,60 +1,54 @@
 <project>
- <properties encryptCode="0" assetsOnly="0" osx_bundle="com.yourdomain." html5_host="" app_icon="" tv_icon="" osx_org="GiderosMobile" encryptAssets="0" winrt_package="com.simpleinteractive.nebula" android_template="0" version="1.0" splash_h_image="" win_org="SimpleInteractive" mouseTouchOrder="0" iosDevice="0" touchToMouse="1" windowHeight="960" architecture="6" osx_category="5" mouseToTouch="0" ios_bundle="com.yourdomain." logicalWidth="320" retinaDisplay="3" version_code="1" osx_domain="giderosmobile.com" scaleMode="3" packageName="com.simpleinteractive.nebula" orientation="1" win_domain="giderosmobile.com" html5_mem="256" splash_v_image="" windowWidth="640" winrt_org="SimpleInteractive" logicalHeight="480" autorotation="0" fps="60">
+ <properties logicalHeight="480" win_org="SimpleInteractive" win_domain="giderosmobile.com" splash_v_image="" touchToMouse="1" osx_bundle="com.yourdomain." windowHeight="960" fps="60" tv_icon="" version="1.0" html5_mem="256" winrt_package="com.simpleinteractive.nebula" logicalWidth="320" windowWidth="640" ios_bundle="com.yourdomain." encryptAssets="0" autorotation="0" mouseToTouch="0" encryptCode="0" osx_domain="giderosmobile.com" osx_category="5" version_code="1" winrt_org="SimpleInteractive" splash_h_image="" android_template="0" architecture="6" html5_host="" app_icon="" scaleMode="3" assetsOnly="0" mouseTouchOrder="0" osx_org="GiderosMobile" iosDevice="0" packageName="com.simpleinteractive.nebula" retinaDisplay="3" orientation="1">
   <imageScales>
    <scale scale="2" suffix="@2x"/>
   </imageScales>
   <plugins/>
   <exports>
    <export name="APK">
-    <property name="androidPath" value=""/>
-    <property name="androidTarget" value="19"/>
-    <property name="antPath" value=""/>
-    <property name="javaPath" value=""/>
-    <property name="keyAlias" value=""/>
-    <property name="keyAliasPass" value=""/>
-    <property name="keyStore" value=""/>
-    <property name="keyStorePass" value=""/>
-    <property name="packageName" value="com.yourdomain.yourapp"/>
+    <property value="" name="androidPath"/>
+    <property value="19" name="androidTarget"/>
+    <property value="" name="antPath"/>
+    <property value="" name="javaPath"/>
+    <property value="" name="keyAlias"/>
+    <property value="" name="keyAliasPass"/>
+    <property value="" name="keyStore"/>
+    <property value="" name="keyStorePass"/>
+    <property value="com.yourdomain.yourapp" name="packageName"/>
    </export>
   </exports>
  </properties>
- <folder name="socket">
-  <file source="socket/url.lua" excludeFromExecution="1"/>
-  <file source="socket/socket.lua" excludeFromExecution="1"/>
-  <file source="socket/mime.lua" excludeFromExecution="1"/>
-  <file source="socket/ltn12.lua" excludeFromExecution="1"/>
-  <file source="socket/levman.lua"/>
-  <file source="socket/http.lua" excludeFromExecution="1"/>
-  <file source="socket/headers.lua" excludeFromExecution="1"/>
- </folder>
- <file source="../layout/Layout.lua"/>
  <folder name="levels"/>
- <file source="zxspectr.txt"/>
- <file source="zxspectr.png"/>
- <file source="Got-it@2x.png"/>
- <file source="Got-it.png"/>
- <file source="SIGN-UNDERLAY@2x.png"/>
- <file source="SIGN-UNDERLAY.png"/>
- <file source="help.png"/>
- <file source="help@2x.png"/>
- <file source="X-DeleteLevel@2x.png"/>
- <file source="X-DeleteLevel.png"/>
- <file source="baddy3@2x.png"/>
- <file source="baddy3.png"/>
- <file source="coin@2x.png"/>
- <file source="coin.png"/>
- <file source="baddy2@2x.png"/>
- <file source="baddy2.png"/>
- <file source="baddy.png"/>
+ <folder name="socket">
+  <file excludeFromExecution="1" source="socket/url.lua"/>
+  <file excludeFromExecution="1" source="socket/socket.lua"/>
+  <file excludeFromExecution="1" source="socket/mime.lua"/>
+  <file excludeFromExecution="1" source="socket/ltn12.lua"/>
+  <file source="socket/levman.lua"/>
+  <file excludeFromExecution="1" source="socket/http.lua"/>
+  <file excludeFromExecution="1" source="socket/headers.lua"/>
+ </folder>
  <file source="Bcratebutton.png"/>
  <file source="Bcratebutton@2x.png"/>
  <file source="Gcratebutton.png"/>
  <file source="Gcratebutton@2x.png"/>
+ <file source="Got-it.png"/>
+ <file source="Got-it@2x.png"/>
+ <file source="../layout/Layout.lua"/>
+ <file source="SIGN-UNDERLAY.png"/>
+ <file source="SIGN-UNDERLAY@2x.png"/>
  <file source="Supernatural.mp3"/>
  <file source="WilhelmScream.wav"/>
+ <file source="X-DeleteLevel.png"/>
+ <file source="X-DeleteLevel@2x.png"/>
+ <file source="baddy.png"/>
+ <file source="baddy2.png"/>
  <file source="baddy28bit.png"/>
+ <file source="baddy2@2x.png"/>
  <file source="baddy2_xmas.png"/>
+ <file source="baddy3.png"/>
  <file source="baddy38bit.png"/>
+ <file source="baddy3@2x.png"/>
  <file source="baddy3_xmas.png"/>
  <file source="baddy8bit.png"/>
  <file source="baddy@2x.png"/>
@@ -66,7 +60,9 @@
  <file source="bigcoin_xmas.png"/>
  <file source="cling_1.wav"/>
  <file source="cling_2.wav"/>
+ <file source="coin.png"/>
  <file source="coin8bit.png"/>
+ <file source="coin@2x.png"/>
  <file source="coin_xmas.png"/>
  <file source="coinbutton.png"/>
  <file source="coinbutton@2x.png"/>
@@ -126,6 +122,8 @@
  <file source="hat.png"/>
  <file source="hbadbutton.png"/>
  <file source="hbadbutton@2x.png"/>
+ <file source="help.png"/>
+ <file source="help@2x.png"/>
  <file source="howtoedit.png"/>
  <file source="howtoedit@2x.png"/>
  <file source="hs_2004_10_a_large_web.jpg"/>
@@ -271,6 +269,7 @@
  <file source="tree.jpg"/>
  <file source="upleft.png"/>
  <file source="upleft@2x.png"/>
+ <file source="upload.png"/>
  <file source="upright.png"/>
  <file source="upright@2x.png"/>
  <file source="vbadbutton.png"/>
@@ -283,6 +282,8 @@
  <file source="zoom1-blackback@2x.png"/>
  <file source="zoom2-fronticon.png"/>
  <file source="zoom2-fronticon@2x.png"/>
+ <file source="zxspectr.png"/>
  <file source="zxspectr.ttf"/>
- <dependency to="display.lua" from="main.lua"/>
+ <file source="zxspectr.txt"/>
+ <dependency from="main.lua" to="display.lua"/>
 </project>

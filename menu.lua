@@ -1085,7 +1085,46 @@ function options_manage(self,event)
     for i=1,n do
       ind=ipos+i-1
       if (ind>0) then
-        menu:addChild(vtext(myfont,"LEVEL "..ind))
+		local label = vtext(myfont,"LEVEL "..ind)
+        menu:addChild(label)
+		if ind > nlevels then
+			local upload_button = Bitmap.new(upload_tex)
+			upload_button.ind = ind
+			label:addChild(upload_button)
+			upload_button:setScale(40/64)
+			upload_button:setPosition(-60, -25)
+			upload_button:addEventListener(Event.MOUSE_DOWN, function(e)
+				if upload_button:hitTestPoint(e.x, e.y) then
+					e:stopPropagation()
+					local ind = upload_button.ind
+					local levelname = "level"..ind..".txt"
+					local coloursname = "colours"..ind..".txt"
+					local dialog = TextInputDialog.new("level upload",
+						levelname, "author - name", "Cancel", "OK")
+					dialog:show()
+					dialog:addEventListener(Event.COMPLETE, function(e)
+						if e.buttonText == "OK" then
+							print(levelname, coloursname)
+							local file = io.open("|D|"..levelname)
+							local level = file:read"*a"
+							local file = io.open("|D|"..coloursname)
+							local colours = file:read"*a"
+							local data = colours..";"..level
+							print(level, colours)
+							local ok, err = levman.upload(e.text, data)
+							local text = "`"..e.text.."` "
+							if err then
+								AlertDialog.new("upload error",
+								text..err, "OK"):show()
+							else
+								AlertDialog.new("upload finished", text..
+								"was successfully uploaded", "OK"):show()
+							end
+						end
+					end)
+				end
+			end)
+		end
       else
         menu:addChild(vtext(myfont,"TUTORIAL "..(ind+5)))
       end
@@ -1384,6 +1423,7 @@ warning:addEventListener(Event.MOUSE_MOVE, warning.removeFromParent, warning)
 warning:addEventListener(Event.KEY_DOWN, warning.removeFromParent, warning)
 
 local function showWarning(text)
+	if not landscape then warning:update{absW = appH, absH = appW} end
 	warning(1):setText(text)
 	stage:addChild(warning)
 end
@@ -1465,6 +1505,7 @@ function menu_levels(self,event)
 			borderW = 3, borderH = 3,
 			template = Button, database = database, scroll = true,
 		}
+		if not landscape then menu:update{absW = appH, absH = appW} end
 		Layout.select(menu)
 	else
 		showWarning "connection error!"

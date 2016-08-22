@@ -17,6 +17,8 @@
 -- and landscape in Windows by changing the window size/shape
 -- currently not supported in Gideros (fix it!)
 
+levman.host = "http://nebula-thecreators.rhcloud.com"
+
 myfont=Font.new("zxspectr.txt","zxspectr.png",true)
 
 application:setFps(60)

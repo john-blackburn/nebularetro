@@ -18,6 +18,7 @@
 -- currently not supported in Gideros (fix it!)
 
 levman.host = "http://nebula-thecreators.rhcloud.com"
+levman.maxnamesize = 32
 
 myfont=Font.new("zxspectr.txt","zxspectr.png",true)
 

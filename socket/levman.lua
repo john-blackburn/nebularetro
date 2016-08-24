@@ -11,7 +11,7 @@ levman.upload(name, data) -- upload level name and data
 levman = {}
 
 levman.host = "http://localhost"
-levman.maxnamesize = 32
+levman.maxnamesize = 64
 
 local http = require "socket.http"
 

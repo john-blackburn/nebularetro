@@ -1,6 +1,6 @@
 const hostname = process.env.NODE_IP || 'localhost'
 const port = process.env.NODE_PORT || 80
-const dbfile = './levels.json'
+const dbfile = process.env.OPENSHIFT_DATA_DIR+'levels.json'
 const maxbodysize = 8000
 const maxnamesize = 32
 const lengthsize = 4
@@ -25,7 +25,7 @@ function loadLevels() {
 const levels = loadLevels()
 const names = Buffer.alloc(maxnamesize * maxlevels, ' ')
 let maximum = 0
-for (name in levels) names.write(name, maximum++ * maxnamesize)
+for (let name in levels) names.write(name, maximum++ * maxnamesize)
 
 const hexpat = /^[0-9A-Fa-f]+$/
 
@@ -68,4 +68,5 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`)
+	console.log(`Database file at ${dbfile}`)
 })

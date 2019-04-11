@@ -1484,7 +1484,7 @@ function main_menu(self,event)
     menu:addChild(vtext(myfont,"HOW TO EDIT"))
     menu:addChild(vtext(myfont,"OPTIONS"))
     menu:addChild(vtext(myfont,"CREDITS"))
-	menu:addChild(vtext(myfont,"DOWNLOAD LEVELS"))
+	menu:addChild(vtext(myfont,"TEH INTERNETS"))
 
     if landscape and landscape_menu then
       menu:getChildAt(1):setPosition(90,170)

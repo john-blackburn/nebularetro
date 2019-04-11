@@ -2,11 +2,6 @@
 -- edited with emacs
 -- Runs on gideros 2016.4
 
--- Currently when running on Windows (desktop) the game is landscape only
--- (hence no level editting)
--- and landscape/portrait option has been disabled
--- see
---      m2:addEventListener(Event.MOUSE_DOWN,options_landscape,m2) (menu.lua)
 -- Also if "Windows" OS then we disable soft controls and there is
 -- a Redefine Keys menu instead of Adjust Controls
 -- We should check for all desktop types not just Windows
@@ -25,8 +20,8 @@ osname,version,idiom,model=application:getDeviceInfo()
 print(osname,version,idiom,model) -- eg iOS 6.1.3 iPad iPad
 --    Android 2.3.4 nil nil
 
---osname="Android"  -- force this for now (see above)
---print("Forced to: ",osname)
+osname="Android"  -- force this for now (see above)
+print("Forced to: ",osname)
 
 --[[
 function print()
@@ -35,8 +30,6 @@ end
 
 local display=require("display")
 require("box2d")
-require("new")
-require("menu")
 
 application:setBackgroundColor(rgb(20,20,20))
 world=b2.World.new(0.0,9.8)

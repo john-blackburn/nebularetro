@@ -1,39 +1,29 @@
 <project>
- <properties osx_bundle="com.yourdomain." win_org="SimpleInteractive" encryptAssets="0" osx_signingId="" architecture="6" tv_icon="" app_icon="" fps="60" backgroundColor="#ffffff" encryptCode="0" osx_category="5" osx_domain="giderosmobile.com" retinaDisplay="3" splashScaleMode="0" osx_org="GiderosMobile" html5_symbols="0" mouseToTouch="0" version_code="1" html5_host="" disableSplash="0" packageName="com.simpleinteractive.nebula" autorotation="0" scaleMode="3" osx_installerId="" exportMode="0" build_number="1" win_domain="giderosmobile.com" ios_bundle="com.yourdomain." orientation="1" html5_fbload="100" vsync="0" winrt_package="com.simpleinteractive.nebula" iosDevice="0" version="1.0" logicalHeight="480" html5_wasm="0" mouseTouchOrder="0" winrt_org="SimpleInteractive" html5_fbinstant="0" html5_mem="256" html5_pack="0" splash_v_image="" logicalWidth="320" windowHeight="960" android_template="0" touchToMouse="1" splash_h_image="" html5_crash="" windowWidth="640" app_name="">
+ <properties win_org="SimpleInteractive" logicalHeight="480" exportMode="0" encryptAssets="0" touchToMouse="1" build_number="1" backgroundColor="#ffffff" osx_installerId="" winrt_org="SimpleInteractive" osx_bundle="com.yourdomain." splashScaleMode="0" orientation="1" html5_mem="256" winrt_package="com.simpleinteractive.nebula" fps="60" encryptCode="0" android_template="0" windowWidth="640" logicalWidth="320" html5_wasm="0" splash_h_image="" autorotation="0" osx_category="5" html5_crash="" html5_fbload="100" splash_v_image="" vsync="0" ios_bundle="com.yourdomain." disableSplash="0" app_icon="" osx_domain="giderosmobile.com" scaleMode="3" win_domain="giderosmobile.com" windowHeight="960" version="1.0" html5_symbols="0" html5_fbinstant="0" mouseToTouch="1" tv_icon="" osx_signingId="" html5_host="" version_code="1" html5_pack="0" architecture="6" packageName="com.simpleinteractive.nebula" osx_org="GiderosMobile" retinaDisplay="3" iosDevice="0" mouseTouchOrder="0" app_name="">
   <imageScales>
    <scale suffix="@2x" scale="2"/>
   </imageScales>
   <plugins/>
   <exports>
    <export name="APK">
-    <property name="androidPath" value=""/>
-    <property name="androidTarget" value="19"/>
-    <property name="antPath" value=""/>
-    <property name="javaPath" value=""/>
-    <property name="keyAlias" value=""/>
-    <property name="keyAliasPass" value=""/>
-    <property name="keyStore" value=""/>
-    <property name="keyStorePass" value=""/>
-    <property name="packageName" value="com.yourdomain.yourapp"/>
+    <property value="" name="androidPath"/>
+    <property value="19" name="androidTarget"/>
+    <property value="" name="antPath"/>
+    <property value="" name="javaPath"/>
+    <property value="" name="keyAlias"/>
+    <property value="" name="keyAliasPass"/>
+    <property value="" name="keyStore"/>
+    <property value="" name="keyStorePass"/>
+    <property value="com.yourdomain.yourapp" name="packageName"/>
    </export>
   </exports>
  </properties>
- <folder name="socket">
-  <file excludeFromExecution="1" source="socket/headers.lua"/>
-  <file excludeFromExecution="1" source="socket/http.lua"/>
-  <file source="socket/levman.lua"/>
-  <file excludeFromExecution="1" source="socket/ltn12.lua"/>
-  <file excludeFromExecution="1" source="socket/mime.lua"/>
-  <file excludeFromExecution="1" source="socket/socket.lua"/>
-  <file excludeFromExecution="1" source="socket/url.lua"/>
- </folder>
  <file source="Bcratebutton.png"/>
  <file source="Bcratebutton@2x.png"/>
  <file source="Gcratebutton.png"/>
  <file source="Gcratebutton@2x.png"/>
  <file source="Got-it.png"/>
  <file source="Got-it@2x.png"/>
- <file source="Layout.lua"/>
  <file source="SIGN-UNDERLAY.png"/>
  <file source="SIGN-UNDERLAY@2x.png"/>
  <file source="Supernatural.mp3"/>
@@ -106,7 +96,7 @@
  <file source="dance_zone.mp3"/>
  <file source="delete.png"/>
  <file source="delete@2x.png"/>
- <file source="display.lua"/>
+ <file excludeFromExecution="1" source="display.lua"/>
  <file source="diving_turtle.mp3"/>
  <file source="easing.lua"/>
  <file source="edit.png"/>

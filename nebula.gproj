@@ -1,5 +1,5 @@
 <project>
- <properties win_org="SimpleInteractive" tv_icon="" iosDevice="0" logicalWidth="320" autorotation="0" osx_category="5" version_code="1" html5_host="" encryptCode="0" osx_bundle="com.yourdomain." scaleMode="3" fps="60" version="1.0" packageName="com.simpleinteractive.nebula" osx_org="GiderosMobile" app_icon="" retinaDisplay="3" windowWidth="640" touchToMouse="1" winrt_org="SimpleInteractive" architecture="6" android_template="0" win_domain="giderosmobile.com" windowHeight="960" html5_mem="256" mouseToTouch="0" osx_domain="giderosmobile.com" encryptAssets="0" splash_h_image="" winrt_package="com.simpleinteractive.nebula" ios_bundle="com.yourdomain." orientation="1" splash_v_image="" assetsOnly="0" mouseTouchOrder="0" logicalHeight="480">
+ <properties osx_bundle="com.yourdomain." win_org="SimpleInteractive" encryptAssets="0" osx_signingId="" architecture="6" tv_icon="" app_icon="" fps="60" backgroundColor="#ffffff" encryptCode="0" osx_category="5" osx_domain="giderosmobile.com" retinaDisplay="3" splashScaleMode="0" osx_org="GiderosMobile" html5_symbols="0" mouseToTouch="0" version_code="1" html5_host="" disableSplash="0" packageName="com.simpleinteractive.nebula" autorotation="0" scaleMode="3" osx_installerId="" exportMode="0" build_number="1" win_domain="giderosmobile.com" ios_bundle="com.yourdomain." orientation="1" html5_fbload="100" vsync="0" winrt_package="com.simpleinteractive.nebula" iosDevice="0" version="1.0" logicalHeight="480" html5_wasm="0" mouseTouchOrder="0" winrt_org="SimpleInteractive" html5_fbinstant="0" html5_mem="256" html5_pack="0" splash_v_image="" logicalWidth="320" windowHeight="960" android_template="0" touchToMouse="1" splash_h_image="" html5_crash="" windowWidth="640" app_name="">
   <imageScales>
    <scale suffix="@2x" scale="2"/>
   </imageScales>
@@ -18,16 +18,14 @@
    </export>
   </exports>
  </properties>
- <file source="Layout.lua"/>
- <folder name="levels"/>
  <folder name="socket">
-  <file source="socket/url.lua" excludeFromExecution="1"/>
-  <file source="socket/socket.lua" excludeFromExecution="1"/>
-  <file source="socket/mime.lua" excludeFromExecution="1"/>
-  <file source="socket/ltn12.lua" excludeFromExecution="1"/>
+  <file excludeFromExecution="1" source="socket/headers.lua"/>
+  <file excludeFromExecution="1" source="socket/http.lua"/>
   <file source="socket/levman.lua"/>
-  <file source="socket/http.lua" excludeFromExecution="1"/>
-  <file source="socket/headers.lua" excludeFromExecution="1"/>
+  <file excludeFromExecution="1" source="socket/ltn12.lua"/>
+  <file excludeFromExecution="1" source="socket/mime.lua"/>
+  <file excludeFromExecution="1" source="socket/socket.lua"/>
+  <file excludeFromExecution="1" source="socket/url.lua"/>
  </folder>
  <file source="Bcratebutton.png"/>
  <file source="Bcratebutton@2x.png"/>
@@ -35,6 +33,7 @@
  <file source="Gcratebutton@2x.png"/>
  <file source="Got-it.png"/>
  <file source="Got-it@2x.png"/>
+ <file source="Layout.lua"/>
  <file source="SIGN-UNDERLAY.png"/>
  <file source="SIGN-UNDERLAY@2x.png"/>
  <file source="Supernatural.mp3"/>
@@ -285,5 +284,5 @@
  <file source="zxspectr.png"/>
  <file source="zxspectr.ttf"/>
  <file source="zxspectr.txt"/>
- <dependency from="main.lua" to="display.lua"/>
+ <dependency to="display.lua" from="main.lua"/>
 </project>

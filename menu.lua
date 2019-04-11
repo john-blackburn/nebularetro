@@ -1085,46 +1085,7 @@ function options_manage(self,event)
     for i=1,n do
       ind=ipos+i-1
       if (ind>0) then
-		local label = vtext(myfont,"LEVEL "..ind)
-        menu:addChild(label)
-		if ind > nlevels then
-			local upload_button = Bitmap.new(upload_tex)
-			upload_button.ind = ind
-			label:addChild(upload_button)
-			upload_button:setScale(40/64)
-			upload_button:setPosition(-60, -25)
-			upload_button:addEventListener(Event.MOUSE_DOWN, function(e)
-				if upload_button:hitTestPoint(e.x, e.y) then
-					e:stopPropagation()
-					local ind = upload_button.ind
-					local levelname = "level"..ind..".txt"
-					local coloursname = "colours"..ind..".txt"
-					local dialog = TextInputDialog.new("level upload",
-						levelname, "author - name", "Cancel", "OK")
-					dialog:show()
-					dialog:addEventListener(Event.COMPLETE, function(e)
-						if e.buttonText == "OK" then
-							print(levelname, coloursname)
-							local file = io.open("|D|"..levelname)
-							local level = file:read"*a"
-							local file = io.open("|D|"..coloursname)
-							local colours = file:read"*a"
-							local data = colours..";"..level
-							print(level, colours)
-							local ok, err = levman.upload(e.text, data)
-							local text = "`"..e.text.."` "
-							if err then
-								AlertDialog.new("upload error",
-								text..err, "OK"):show()
-							else
-								AlertDialog.new("upload finished", text..
-								"was successfully uploaded", "OK"):show()
-							end
-						end
-					end)
-				end
-			end)
-		end
+        menu:addChild(vtext(myfont,"LEVEL "..ind))
       else
         menu:addChild(vtext(myfont,"TUTORIAL "..(ind+5)))
       end
@@ -1409,124 +1370,6 @@ function menu_credits(self,event)
   end
 end
 
-local appW = application:getContentWidth()
-local appH = application:getContentHeight()
-
-local warning = Layout.new{
-	absX = 0, absY = 0, absW = appW, absH = appH,
-	bgrC = 0x000000, bgrA = 0.5,
-	TextField.new(myfont, "", "-"),
-}
-warning(1):setTextColor(0xFFFFFF)
-warning:addEventListener(Event.MOUSE_DOWN, warning.removeFromParent, warning)
-warning:addEventListener(Event.MOUSE_MOVE, warning.removeFromParent, warning)
-warning:addEventListener(Event.KEY_DOWN, warning.removeFromParent, warning)
-
-local function showWarning(text)
-	if not landscape then warning:update{absW = appH, absH = appW} end
-	warning(1):setText(text)
-	stage:addChild(warning)
-end
-
-local Button = Layout:with{
-	text = "BUTTON",
-	textColor = 0xFFFFFF,
-	bgrC = 0xAA0000, bgrA = 1.0,
-	sprM = Layout.FIT_HEIGHT, sprS = 0.10,
-	
-	init = function(self, p)
-		self.textfield = TextField.new(myfont, self.text, "-")
-		self.textfield:setTextColor(self.textColor)
-		self:addChild(self.textfield)
-	end,
-	
-	upd = function(self, p)
-		if p.text then self.textfield:setText(p.text) end
-	end,
-	
-	anPress = Layout.newAnimation(14, 7, 0.02),
-	anHover = Layout.newAnimation(14, 7, 0.01),
-	
-	onPress = function(self)
-		local data = levman.download(self.text)
-		if data then
-			local pos = data:find";"
-			if pos then
-				local colours = data:sub(1, pos-1)
-				local level = data:sub(pos+1, -1)
-				totlevels = totlevels + 1
-				local path = "|D|level"..totlevels..".txt"
-				local file =io.open(path,"w")
-				file:write(level)
-				file:close()
-				local path = "|D|colours"..totlevels..".txt"
-				local file =io.open(path,"w")
-				file:write(colours)
-				file:close()
-				local path= "|D|config.txt"
-				local file = io.open(path,"w")
-				writeconfig(file)
-				file:close()
-				showWarning("saved as #"..totlevels)
-			else
-				showWarning(self.text.." is corrupted!")
-			end
-		else
-			showWarning "connection error!"
-		end
-	end,
-	
-	anAdd = Layout.newAnimation(40, 0, 0.1)
-}
-
-function menu_levels(self,event)
-  if self:hitTestPoint(event.x,event.y) then
-
-    if (menu) then
-      menu:removeFromParent()
-    end
-
-    if (kill) then
-      kill:removeFromParent()
-      kill=nil
-    end
-	
-	local count = levman.count()
-	local MAX_NAMES_PER_REQUEST = 100
-	local names = count and levman.names(1, count, MAX_NAMES_PER_REQUEST)
-
-	if count and names then
-		local database = {}
-		for k,v in ipairs(names) do table.insert(database, {text = v}) end
-		menu = Layout.new{
-			bgrA = 0.0, bgrC = 0xFF00FF,
-			absX = 0, absY = 0, absW = appW, absH = appH,
-			cellAbsH = 40, cols = 1,
-			borderW = 3, borderH = 3,
-			template = Button, database = database, scroll = true,
-		}
-		if not landscape then menu:update{absW = appH, absH = appW} end
-		Layout.select(menu)
-	else
-		showWarning "connection error!"
-		menu = warning
-	end
-	
-	stage:addChild(menu)
-
-    menu:setAlpha(0)
-    GTween.new(menu,time,{alpha=1})
-    GTween.new(ego,time,{x=50,y=50})
-
-    kill=display.newImage("x.png",450,290)
-    kill:addEventListener(Event.MOUSE_DOWN,main_menu,kill)
-	kill:addEventListener(Event.ENTER_FRAME,function()
-		if kill then stage:addChild(kill) end
-	end)
-
-  end
-end
-
 function cheat(self,event)
   if self:hitTestPoint(event.x,event.y) then
     cheatcount=cheatcount+1
@@ -1691,7 +1534,7 @@ function main_menu(self,event)
     m6:addEventListener(Event.MOUSE_DOWN,menu_edit,m6)
     m7:addEventListener(Event.MOUSE_DOWN,menu_options,m7)
     m8:addEventListener(Event.MOUSE_DOWN,menu_credits,m8)
-	m9:addEventListener(Event.MOUSE_DOWN,menu_levels,m9)
+--	m9:addEventListener(Event.MOUSE_DOWN,menu_levels,m9)
 
     if demo then
       local m9= boldtext(myfont,"DEMO VERSION",0x0,0xff0000)
@@ -2167,55 +2010,54 @@ function onKeyDown(event)
   if menu and menu.name=="redefine_keys" then
     Keys[flashKey]=event.keyCode
     menu:getChildAt(1):getChildAt(2):setText("LEFT="..KeyString[Keys[1]])
-  menu:getChildAt(2):getChildAt(2):setText("RIGHT="..KeyString[Keys[2]])
-menu:getChildAt(3):getChildAt(2):setText("JUMP="..KeyString[Keys[3]])
+    menu:getChildAt(2):getChildAt(2):setText("RIGHT="..KeyString[Keys[2]])
+    menu:getChildAt(3):getChildAt(2):setText("JUMP="..KeyString[Keys[3]])
 
-fh=io.open("|D|config.txt","w")
-writeconfig(fh)
-fh:close()
+    fh=io.open("|D|config.txt","w")
+    writeconfig(fh)
+    fh:close()
 
-elseif event.keyCode==KeyCode.BACK then
+  elseif event.keyCode==KeyCode.BACK then
 
-if popup_sprite then
-  popup_sprite:removeFromParent()
-  popup_sprite=nil
-  return
-end
+    if popup_sprite then
+      popup_sprite:removeFromParent()
+      popup_sprite=nil
+      return
+    end
 
-if not menu then
-  if playing then
-    onpause()
+    if not menu then
+      if playing then
+        onpause()
+      end
+    elseif (menu.name=="play" or menu.name=="edit" or menu.name=="credits" or menu.name=="options") then
+      main_menu()
+    elseif (menu.name=="controls_set") then
+      controls_set_end()
+    elseif (menu.name=="options_manage") then
+      menu_options()
+    end
+	
+  elseif event.keyCode==Keys[1] then
+    leftpressed=true
+    rightpressed=false
+    activeKey=event.keyCode
+  elseif event.keyCode==Keys[2] then
+    leftpressed=false
+    rightpressed=true
+    activeKey=event.keyCode
+  elseif playing and event.keyCode==Keys[3] then
+    if onground or ring then
+
+      local gx,gy=world:getGravity()
+      local vx=ego.body:getLinearVelocity()
+
+      if (gy>0) then
+        ego.body:setLinearVelocity(vx,-7.0)
+      else
+        ego.body:setLinearVelocity(vx, 7.0)
+      end
+    end
   end
-elseif (menu.name=="play" or menu.name=="edit" or menu.name=="credits" or menu.name=="options") then
-  main_menu()
-elseif (menu.name=="controls_set") then
-  controls_set_end()
-elseif (menu.name=="options_manage") then
-  menu_options()
-end
-elseif event.keyCode==Keys[1] then
-leftpressed=true
-rightpressed=false
-activeKey=event.keyCode
-elseif event.keyCode==Keys[2] then
-leftpressed=false
-rightpressed=true
-activeKey=event.keyCode
-elseif playing and event.keyCode==Keys[3] then
-if onground or ring then
-
-  local gx,gy=world:getGravity()
-  local vx=ego.body:getLinearVelocity()
-
-  if (gy>0) then
-    ego.body:setLinearVelocity(vx,-7.0)
-  else
-    ego.body:setLinearVelocity(vx, 7.0)
-  end
-end
-
-end
-
 end
 
 function onKeyUp(event)

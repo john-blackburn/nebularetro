@@ -5,6 +5,7 @@
 local landscape_menu=true   -- should always be true
 
 local ipos=-4
+local iposnet=1
 local time=0.7
 
 local flashKey=1
@@ -161,6 +162,7 @@ function menu_start(self,event)
 
     ncoll=0
     trans=2
+	fromInternet=false
     loadlevel()
   end
 end
@@ -1034,6 +1036,8 @@ function dragControlUp(self,event)
   end
 end
 
+local names={}
+
 function options_manage(self,event)
   if (not self) or self:hitTestPoint(event.x,event.y) then
     if (menu) then
@@ -1051,10 +1055,51 @@ function options_manage(self,event)
     menu.name="options_manage"
     stage:addChild(menu)
 
-    yst=50
-    pitch=50
+    local yst=50
+    local pitch=50
+    local ind
+    local n=math.min(7,totlevels-ipos+1)
 
-    n=math.min(7,totlevels-ipos+1)
+-------------------------------------------------------
+-- Figure out which predefined levels have been edited
+-- Also get level names
+-------------------------------------------------------
+
+   local changed={}
+   for i=1,n do
+      ind=ipos+i-1
+	  if ind <=nlevels then
+	  local fh=io.open("level"..ind..".txt","r")
+	  local orig_contents=fh:read("*a")
+	  fh:close()
+	  
+	  local fh=io.open("|D|level"..ind..".txt","r")
+	  local contents=fh:read("*a")
+	  fh:close()
+	  
+	  local fh=io.open("colours"..ind..".txt","r")
+	  local orig_contentsC=fh:read("*a")
+	  fh:close()
+	  
+	  local fh=io.open("|D|colours"..ind..".txt","r")
+	  local contentsC=fh:read("*a")
+	  fh:close()
+	  
+	  if contents==orig_contents and contentsC==orig_contentsC then
+	    changed[i]=false
+	  else
+	    changed[i]=true
+	  end
+	  end
+   end	  
+   
+   names={}
+   for i=1,n do
+     ind=ipos+i-1
+	 local fh=io.open("|D|level"..ind..".txt","r")
+	 names[ind]=fh:read("*line")
+	 fh:close()
+   end
 
 ----------------------------------------------------------------------
 -- Rectangles
@@ -1062,7 +1107,7 @@ function options_manage(self,event)
 
     for i=1,n do
       ind=ipos+i-1
-      menu:addChild(display.newRect(280,40, 1,1,1))
+      menu:addChild(display.newRect(220,40, 1,1,1))
       menu:getChildAt(i):addEventListener(Event.MOUSE_DOWN,gotolevel,menu:getChildAt(i))
 
       if (ind <= nlevels) then
@@ -1084,42 +1129,67 @@ function options_manage(self,event)
 
     for i=1,n do
       ind=ipos+i-1
-      if (ind>0) then
-        menu:addChild(vtext(myfont,"LEVEL "..ind))
-      else
-        menu:addChild(vtext(myfont,"TUTORIAL "..(ind+5)))
-      end
+	  menu:addChild(vtext(myfont,names[ind]))
     end
 
 ----------------------------------------------------------------------
--- Delete/reset buttons
+-- Delete/reset buttons. Upload buttons. Rename buttons
 ----------------------------------------------------------------------
 
     for i=1,n do
       ind=ipos+i-1
       if (ind<upto or (upto==totlevels)) then
+	    local btn1,btn2,btn3=nil,nil,nil
+
         if (ind<=nlevels) then
-          menu:addChild(display.newImage("reset.png",0,0))
+          if (changed[i]) then 
+		     btn1=display.newImage("reset.png")
+			 btn2=display.newImage("upload.png")
+			 btn3=display.newImage("edit.png")
+		  end
         else
-          menu:addChild(display.newImage("X-DeleteLevel.png",0,0))
+          btn1=display.newImage("X-DeleteLevel.png")
+		  btn2=display.newImage("upload.png")
+		  btn3=display.newImage("edit.png")
         end
+		
+		if btn1 then
+		  btn1.level=ind
+          btn1:addEventListener(Event.MOUSE_DOWN,rmlevel,btn1)
+          btn1:setX(280)
+          btn1:setY(yst+(i-1)*pitch)
+		  menu:addChild(btn1)
+        end
+		
+		if btn2 then
+		  btn2.level=ind
+		  btn2:addEventListener(Event.MOUSE_DOWN,uploadlevel,btn2)
+		  btn2:setScale(0.5)
+          btn2:setX(240)
+          btn2:setY(yst+(i-1)*pitch)
+		  menu:addChild(btn2)
+		end
+		
+		if btn3 then
+		  btn3.level=ind
+		  btn3:addEventListener(Event.MOUSE_DOWN,renameLevel,btn3)
+		  btn3:setScale(0.5)
+          btn3:setX(320)
+          btn3:setY(yst+(i-1)*pitch)
+		  menu:addChild(btn3)
+		end
 
-        local num=menu:getNumChildren()
-
-        menu:getChildAt(num):addEventListener(Event.MOUSE_DOWN,rmlevel,menu:getChildAt(num))
-        menu:getChildAt(num):setX(280)
-        menu:getChildAt(num):setY(yst+(i-1)*pitch)
-      end
+	  end
     end
-
+	
 ----------------------------------------------------------------------
 -- position everything
 ----------------------------------------------------------------------
 
     for i=1,n do
       y=yst+(i-1)*pitch
-      menu:getChildAt(i):setPosition(160,y)
-      menu:getChildAt(i+n):setPosition(80,y+5)
+      menu:getChildAt(i):setPosition(100,y)
+      menu:getChildAt(i+n):setPosition(0,y+5)
       menu:getChildAt(i+n):setTextColor(0xffffff)
     end
 
@@ -1166,8 +1236,8 @@ end
 function manageprev(self,event)
   if self:hitTestPoint(event.x,event.y) then
     if ipos>-4 then
-      menu:removeFromParent(); menu=nil
-      kill:removeFromParent(); kill=nil
+--      menu:removeFromParent(); menu=nil
+--      kill:removeFromParent(); kill=nil
 
       ipos=ipos-7
       options_manage()
@@ -1179,8 +1249,8 @@ function managenext(self,event)
 
   if self:hitTestPoint(event.x,event.y) then
     if (ipos<=totlevels-7) then
-      menu:removeFromParent(); menu=nil
-      kill:removeFromParent(); kill=nil
+--      menu:removeFromParent(); menu=nil
+--      kill:removeFromParent(); kill=nil
 
       ipos=ipos+7
       options_manage()
@@ -1213,6 +1283,7 @@ function gotolevel(self,event)
 
           ncoll=0
           trans=2
+		  fromInternet=false
           loadlevel()
         end
 
@@ -1223,28 +1294,90 @@ function gotolevel(self,event)
   end
 end
 
-local rmglobal
+local levelGlobal
+
+function uploadlevel(self,event)
+  if self:hitTestPoint(event.x,event.y) then
+     levelGlobal=self.level
+	 popup({"Really upload","level?","Are you sure?"},
+           {"Upload","No way!"},{uploadConfirm,nil})
+   end
+end
+
+function uploadConfirm()
+    local fh=io.open("|D|level"..levelGlobal..".txt","r")
+	local content=fh:read("*a")
+	fh:close()
+
+    local fh=io.open("|D|colours"..levelGlobal..".txt","r")
+	local contentC=fh:read("*a")
+	fh:close()
+	
+	local send=content.."#"..contentC
+--	local headers = {["Content-Length"]=#send}
+--  headers is 3rd argument if needed (before the body)
+	local ul=UrlLoader.new("http://johnfblackburn.com/cgi-bin/nebula_upload.cgi",UrlLoader.POST,send)
+	ul:addEventListener(Event.COMPLETE,uploadComplete)
+end
+
+function uploadComplete(event)
+  print (event.data)
+  print (event.httpStatusCode)
+--  for k,v in pairs(event.headers) do
+--    print (k,v)
+--  end
+  if event.data=="file_exists" then
+    popup({"Level already","exists on server","Try renaming it"},{"OK"},{nil})
+  else
+    popup({"Level uploaded","to server!"},{"OK"},{nil})  
+  end
+end
+
+function renameLevel(self,event)
+  if self:hitTestPoint(event.x,event.y) then
+  	   levelGlobal=self.level
+       local textInputDialog = TextInputDialog.new("Rename level", "Enter 3-13 chars: letters, numbers or spaces", 
+	         names[levelGlobal], "Cancel", "OK")
+	   textInputDialog:addEventListener(Event.COMPLETE, renameComplete)
+       textInputDialog:show()
+  end
+end
+
+-- magic chars: []()+-*?.^$%
+function renameComplete(event)
+  if event.buttonText=="OK" then
+     local name=event.text
+     print ("new name=",name," for level ",levelGlobal)
+	 
+	 if string.find(name,"[^%w ]") ~= nil or #name>13 or #name<3 or string.sub(name,1,1)==" " or string.sub(name,-1,-1)==" " then
+       popup({"Illegal name","Try again!"},{"OK"},{nil})
+	   return
+	 end
+
+	 local fh=io.open("|D|level"..levelGlobal..".txt","r")
+	 local content=fh:read("*a")
+	 fh:close()
+	 	 
+     content=string.gsub(content,names[levelGlobal],name,1)  -- replace only first occurence. Assume old name has no magic chars
+	 local fh=io.open("|D|level"..levelGlobal..".txt","w")
+	 fh:write(content)
+	 fh:close()
+	 options_manage()
+  end
+end
 
 function rmlevel(self,event)
-
   if self:hitTestPoint(event.x,event.y) then
-
-    local n=math.min(7,totlevels-ipos+1)
-
-    for i=1,7 do
-      if (menu:getChildAt(2*n+i)==self) then
-        print ('delete',i,i+ipos-1)
-        rmglobal=i+ipos-1
-        if (rmglobal<=nlevels) then
+        levelGlobal=self.level
+        if (levelGlobal<=nlevels) then
+		  print ('reset level:',levelGlobal)
           popup({"Really reset","level?","Are you sure?"},
             {"Reset","No way!"},{rmComplete,nil})
         else
+		  print ('delete level:',levelGlobal)
           popup({"Really delete","level?","Are you sure?"},
             {"Delete","No way!"},{rmComplete,nil})
         end
-        break
-      end
-    end
 
     event:stopPropagation()
   end
@@ -1254,30 +1387,30 @@ function rmComplete(event)  -- not a touch listener
 
   local contents,fh,path
 
-  if (rmglobal<=nlevels) then
-    path="level"..rmglobal..".txt"
+  if (levelGlobal<=nlevels) then
+    path="level"..levelGlobal..".txt"
     fh=io.open(path,"r")
     contents=fh:read("*a")
     fh:close()
 
-    path="|D|level"..rmglobal..".txt"
+    path="|D|level"..levelGlobal..".txt"
     fh=io.open(path,"w")
     fh:write(contents)
     fh:close()
 
-    path="colours"..rmglobal..".txt"
+    path="colours"..levelGlobal..".txt"
     fh=io.open(path,"r")
     contents=fh:read("*a")
     fh:close()
 
-    path="|D|colours"..rmglobal..".txt"
+    path="|D|colours"..levelGlobal..".txt"
     fh=io.open(path,"w")
     fh:write(contents)
     fh:close()
 
   else
     print ("Deleting user-level")
-    for i=rmglobal,totlevels-1 do
+    for i=levelGlobal,totlevels-1 do
       path="|D|level"..(i+1)..".txt"
       fh=io.open(path,"r")
       contents=fh:read("*a")
@@ -1317,9 +1450,9 @@ function rmComplete(event)  -- not a touch listener
     kill:removeFromParent(); kill=nil
 
     ipos=-4
-    options_manage()
 
   end
+  options_manage()
 end
 
 ----------------------------------------------------------------------
@@ -1480,7 +1613,7 @@ function main_menu(self,event)
 	menu:addChild(display.newGradRect(280,35, 255,0,0))
 
     menu:addChild(vtext(myfont,"START!"))
-    menu:addChild(vtext(myfont,"HELP!(SPOILERS)"))
+    menu:addChild(vtext(myfont,"HOW TO PLAY"))
     menu:addChild(vtext(myfont,"HOW TO EDIT"))
     menu:addChild(vtext(myfont,"OPTIONS"))
     menu:addChild(vtext(myfont,"CREDITS"))
@@ -1534,7 +1667,7 @@ function main_menu(self,event)
     m6:addEventListener(Event.MOUSE_DOWN,menu_edit,m6)
     m7:addEventListener(Event.MOUSE_DOWN,menu_options,m7)
     m8:addEventListener(Event.MOUSE_DOWN,menu_credits,m8)
---	m9:addEventListener(Event.MOUSE_DOWN,menu_levels,m9)
+	m9:addEventListener(Event.MOUSE_DOWN,menu_internets,m9)
 
     if demo then
       local m9= boldtext(myfont,"DEMO VERSION",0x0,0xff0000)
@@ -1549,6 +1682,125 @@ function main_menu(self,event)
 
   end
 
+end
+
+function menu_internets(self,event)
+  if self:hitTestPoint(event.x,event.y) then
+     local ul=UrlLoader.new("http://johnfblackburn.com/cgi-bin/nebula_levels/",UrlLoader.GET)
+	 ul:addEventListener(Event.COMPLETE,menu_internets_show)
+  end
+end
+
+function menu_internets_show(event)
+  print (event.data)
+  local i=1
+  names={}
+  local ind=0
+  while true do
+    i=string.find(event.data,"<a",i,true)
+    if i==nil then break end
+    local st=string.find(event.data,">",i,true)+1
+	local ed=string.find(event.data,"<",st,true)-1
+	local name=string.sub(event.data,st,ed)
+	if string.find(name,".txt",1,true)~=nil then
+	  ind=ind+1
+	  names[ind]=name
+	end
+	i=ed
+  end
+  
+  for i=1,#names do
+    print (i,names[i])
+  end
+
+    if (menu) then
+      menu:removeFromParent()
+    end
+
+    if (kill) then
+      kill:removeFromParent()
+      kill=nil
+    end
+
+    GTween.new(ego,time,{x=430,y=180})
+
+    menu=Sprite.new()
+    menu.name="menu_internets_show"
+    stage:addChild(menu)
+
+    local yst=50
+    local pitch=50
+    local n=math.min(7,#names-iposnet+1)
+	
+    for i=1,n do
+      local ind=iposnet+i-1
+	  local y=yst+(i-1)*pitch
+
+	  local r=display.newRect(200,40, 0,206,11)
+	  r:setPosition(100,y)
+	  r:addEventListener(Event.MOUSE_DOWN,menu_internets_select,r)
+	  r.name=names[ind]
+      menu:addChild(r)
+	  
+	  local s=string.gsub(names[ind],"_"," ")
+	  s=string.gsub(s,"%.txt","")
+	  
+	  local t=vtext(myfont,s)
+	  t:setPosition(20,y+5)
+      t:setTextColor(0xffffff)
+      menu:addChild(t)
+    end
+	
+	kill=display.newImage("x.png",30,440)
+    kill:addEventListener(Event.MOUSE_DOWN,main_menu,kill)
+
+    if landscape and landscape_menu then
+      kill:setPosition(450,290)
+    end
+
+    menu:setAlpha(0)
+    GTween.new(menu,time,{alpha=1})
+
+    if landscape then
+      menu:setScale(0.9)
+      menu:setPosition(80,-20)
+	end
+end
+
+function menu_internets_select(self,event)
+  if self:hitTestPoint(event.x,event.y) then
+     print ("Selected: ",self.name)
+     local ul=UrlLoader.new("http://johnfblackburn.com/cgi-bin/nebula_levels/"..self.name,UrlLoader.GET)
+	 ul:addEventListener(Event.COMPLETE,downloadComplete)
+  end
+end
+
+function downloadComplete(event)
+  local content=event.data
+  print("received: ",content)
+
+  local i = string.find(content,"#")
+  
+  local fh=io.open("|D|downloaded_level.txt","w")
+  fh:write(string.sub(content,1,i-1))
+  fh:close()
+  
+  local fh=io.open("|D|downloaded_levelC.txt","w")
+  fh:write(string.sub(content,i+1))
+  fh:close()
+  
+  menu:removeFromParent()
+  menu=nil
+
+  menu_first=true
+  stage:removeEventListener(Event.ENTER_FRAME, menu_update)
+
+  showbuttons()
+
+  ncoll=0
+  trans=2
+  fromInternet=true
+  loadlevel()
 end
 
 --######################################################################

@@ -64,6 +64,7 @@ multitouch=true         -- should always be true
 threebutton=false
 readsign=false
 playing=false
+levelName=nil
 
 onground=nil
 local newplanet,ncoll
@@ -102,6 +103,7 @@ fxstat="ON"
 graphics="space"
 local mode,pause
 modestate="S"
+fromInternet=nil
 
 ----------------------------------------------------------------------
 -- sound assets
@@ -254,6 +256,7 @@ function onsave()
   path="|D|colours"..level..".txt"
   ch=io.open(path,"w")
 
+  fh:write(levelName,"\n")
   fh:write(planet:getX()," ",planet:getY(),"\n")
 
   ntot=0
@@ -900,6 +903,16 @@ function update(event)
 
         collected=collected+1
         if (collected==ncoins) then
+		
+		   if fromInternet then
+		       hidebuttons()
+               planet:setVisible(false)
+		       trans=-1
+               killlevel()
+               main_menu()
+			   return
+		   end
+		
           readsign=false
           level=level+1
           if (level>totlevels) then level=1 end
@@ -971,7 +984,7 @@ function update(event)
             if (fxstat=="ON") then
               diesound:play()
             end
-            --	       ncoll=0
+						
             trans=1; killlevel()
             return
           end
@@ -1019,7 +1032,6 @@ function update(event)
         scream:play()
       end
 
-      --         ncoll=0
       trans=1; killlevel()
       return
     end
@@ -1288,7 +1300,6 @@ function loadlevel()
   if landscape then sscale=2 end
 
   if (level==upto and upto<nlevels) then
-    print ("HERE",level,upto,nlevels)
     if edit then
       showbuttons()
       edit=false
@@ -1315,11 +1326,21 @@ function loadlevel()
 -- open files
 ----------------------------------------------------------------------
 
-  local path="|D|level"..level..".txt"
+  local path
+  local pathC
+  if fromInternet then
+    path = "|D|downloaded_level.txt"
+	pathC= "|D|downloaded_levelC.txt"
+  else
+    path="|D|level"..level..".txt"
+    pathC="|D|colours"..level..".txt"
+  end
+  
   local fh=io.open(path,"r")
-
-  local path="|D|colours"..level..".txt"
-  local ch=io.open(path,"r")
+  local ch=io.open(pathC,"r")
+  
+  levelName=fh:read("*line")  -- skip past level name
+  print("level name=",levelName)
 
   x,y=fh:read("*number","*number")
   fh:read("*line")

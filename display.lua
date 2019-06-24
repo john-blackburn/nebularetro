@@ -9,6 +9,8 @@ function rgb(r,g,b)
    return math.floor(r)*65536+math.floor(g)*256+math.floor(b)
 end
 
+--######################################################################
+
 display.newRoundRect=function(width,height,crad,r,g,b,alpha,rs,gs,bs,swidth)
 
 local block=Shape.new()
@@ -45,6 +47,8 @@ stage:addChild(block)
 
 return block
 end
+
+--######################################################################
 
 display.newArrow=function(width,height,dir,r,g,b,alpha,rs,gs,bs,swidth)
 
@@ -88,6 +92,8 @@ stage:addChild(block)
 return block
 end
 
+--######################################################################
+
 display.newRect=function(width,height,r,g,b,alpha,rs,gs,bs,swidth)
 
 local block=Shape.new()
@@ -116,6 +122,8 @@ stage:addChild(block)
 
 return block
 end
+
+--######################################################################
 
 display.newBorderRect=function(width,height,r,g,b,alpha,rs,gs,bs,swidth)
 
@@ -158,6 +166,7 @@ stage:addChild(block)
 return block
 end
 
+--######################################################################
 
 display.newStripeRect=function(width,height,r,g,b,r2,g2,b2)
 
@@ -217,6 +226,8 @@ display.newStripeRect=function(width,height,r,g,b,r2,g2,b2)
    stage:addChild(block)
    return block
 end
+
+--######################################################################
 
 display.newGradRect=function(width,height,r,g,b)
 
@@ -279,6 +290,8 @@ display.newGradRect=function(width,height,r,g,b)
    stage:addChild(block)
    return block
 end
+
+--######################################################################
 
 display.newImage=function(name,x,y,filtering)
 --   local image=Bitmap.new(Texture.new(name,filtering))

@@ -662,9 +662,10 @@ function newlevel()
    path="|D|level"..level..".txt"
    fh=io.open(path,"w")
 
+   fh:write("New Level\n")
    fh:write("100 100\n")
    fh:write("ncoins\n",1,"\n")
-   fh:write("50 50\n")
+   fh:write("100 200\n")
    
    fh:write("nbaddy\n",0,"\n")
    fh:write("nplatform\n",1,"\n")
@@ -682,7 +683,7 @@ function newlevel()
    
    path="|D|config.txt"
    fh=io.open(path,"w")
-   fh:write(totlevels," ",totlevels)
+   writeconfig(fh)
    fh:close()
    
    print ("level created")

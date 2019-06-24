@@ -1,20 +1,22 @@
 <project>
- <properties win_org="SimpleInteractive" logicalHeight="480" exportMode="0" encryptAssets="0" touchToMouse="1" build_number="1" backgroundColor="#ffffff" osx_installerId="" winrt_org="SimpleInteractive" osx_bundle="com.yourdomain." splashScaleMode="0" orientation="1" html5_mem="256" winrt_package="com.simpleinteractive.nebula" fps="60" encryptCode="0" android_template="0" windowWidth="640" logicalWidth="320" html5_wasm="0" splash_h_image="" autorotation="0" osx_category="5" html5_crash="" html5_fbload="100" splash_v_image="" vsync="0" ios_bundle="com.yourdomain." disableSplash="0" app_icon="" osx_domain="giderosmobile.com" scaleMode="3" win_domain="giderosmobile.com" windowHeight="960" version="1.0" html5_symbols="0" html5_fbinstant="0" mouseToTouch="1" tv_icon="" osx_signingId="" html5_host="" version_code="1" html5_pack="0" architecture="6" packageName="com.simpleinteractive.nebula" osx_org="GiderosMobile" retinaDisplay="3" iosDevice="0" mouseTouchOrder="0" app_name="">
+ <properties encryptAssets="0" html5_fbload="100" vsync="0" packageName="com.simpleinteractive.nebula" windowHeight="960" mouseToTouch="1" winrt_org="SimpleInteractive" html5_host="" orientation="1" splash_v_image="" app_name="" architecture="0" version_code="1" version="1.0" android_template="0" html5_fbinstant="0" html5_pack="0" html5_wasm="0" logicalWidth="320" splashScaleMode="0" html5_crash="" iosDevice="0" scaleMode="5" osx_category="5" backgroundColor="#ffffff" win_domain="giderosmobile.com" osx_signingId="" touchToMouse="1" exportMode="0" autorotation="0" app_icon="" logicalHeight="480" html5_symbols="0" osx_org="GiderosMobile" osx_bundle="com.yourdomain." build_number="1" osx_installerId="" fps="60" retinaDisplay="3" splash_h_image="" html5_mem="256" mouseTouchOrder="0" tv_icon="" disableSplash="0" winrt_package="com.simpleinteractive.nebula" ios_bundle="com.yourdomain." win_org="SimpleInteractive" windowWidth="640" encryptCode="0" osx_domain="giderosmobile.com">
   <imageScales>
    <scale suffix="@2x" scale="2"/>
   </imageScales>
   <plugins/>
   <exports>
    <export name="APK">
-    <property value="" name="androidPath"/>
-    <property value="19" name="androidTarget"/>
-    <property value="" name="antPath"/>
-    <property value="" name="javaPath"/>
-    <property value="" name="keyAlias"/>
-    <property value="" name="keyAliasPass"/>
-    <property value="" name="keyStore"/>
-    <property value="" name="keyStorePass"/>
-    <property value="com.yourdomain.yourapp" name="packageName"/>
+    <property name="androidPath" value=""/>
+    <property name="androidSdk" value=""/>
+    <property name="androidTarget" value="26"/>
+    <property name="androidTools" value=""/>
+    <property name="buildApk" value="1"/>
+    <property name="deployApk" value="0"/>
+    <property name="javaPath" value=""/>
+    <property name="keyAlias" value=""/>
+    <property name="keyStore" value=""/>
+    <property name="packageName" value="com.simpleinteractive.nebula"/>
+    <property name="timestampApk" value="0"/>
    </export>
   </exports>
  </properties>
@@ -96,7 +98,7 @@
  <file source="dance_zone.mp3"/>
  <file source="delete.png"/>
  <file source="delete@2x.png"/>
- <file excludeFromExecution="1" source="display.lua"/>
+ <file source="display.lua" excludeFromExecution="1"/>
  <file source="diving_turtle.mp3"/>
  <file source="easing.lua"/>
  <file source="edit.png"/>
@@ -274,5 +276,5 @@
  <file source="zxspectr.png"/>
  <file source="zxspectr.ttf"/>
  <file source="zxspectr.txt"/>
- <dependency to="display.lua" from="main.lua"/>
+ <dependency from="main.lua" to="display.lua"/>
 </project>

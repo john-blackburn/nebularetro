@@ -6,7 +6,7 @@
 -- a Redefine Keys menu instead of Adjust Controls
 -- We should check for all desktop types not just Windows
 -- by desktop I mean devices with physical keyboards which are landscape only
--- (Windows, Mac, HTML5 - presumably this is "desktop")
+-- (Windows, Win32, Windows Store, Mac OS, HTML5 - presumably this is "desktop")
 
 -- Later need to fix this so that we can switch between portrait
 -- and landscape in Windows by changing the window size/shape
@@ -20,8 +20,8 @@ osname,version,idiom,model=application:getDeviceInfo()
 print(osname,version,idiom,model) -- eg iOS 6.1.3 iPad iPad
 --    Android 2.3.4 nil nil
 
-osname="Android"  -- force this for now (see above)
-print("Forced to: ",osname)
+-- osname="Android"  -- force this for now (see above)
+-- print("Forced to: ",osname)
 
 --[[
 function print()
@@ -1967,6 +1967,8 @@ function loadlevel()
 -- Level inc dec and text.
 ----------------------------------------------------------------------
 
+  if not fromInternet then
+
   if level<1 then
     leveltxt=TextField.new(myfont, "t"..(level+5))
   else
@@ -2012,12 +2014,13 @@ function loadlevel()
   stage:addChildAt(dectext,3)
   stage:addChildAt(inclevel,3)
   stage:addChildAt(declevel,3)
-
+  end
+  
 ----------------------------------------------------------------------
 -- The edit button
 ----------------------------------------------------------------------
 
-  if (not landscape) then
+  if (not landscape and not fromInternet) then
 
     editbutton=Sprite.new()
 
@@ -2113,10 +2116,12 @@ function loadlevel()
   ncoll=0
   onground=false
 
+  if not fromInternet then
   if level<1 then
     leveltxt:setText("t"..(level+5))
   else
     leveltxt:setText(level)
+  end
   end
 
   imusic=(level-1)%8+1
@@ -2155,7 +2160,7 @@ function loadlevel()
 -- sign
 ----------------------------------------------------------------------
 
-  if (level==upto and not readsign) then
+  if (not fromInternet and level==upto and not readsign) then
     if (level==-4) then
       sign=display.newImage("sign.png",120,265)
     elseif (level==-3) then
@@ -2257,6 +2262,7 @@ function loadlevel()
 -- Set level change buttons
 ----------------------------------------------------------------------
 
+  if not fromInternet then
   if (level==totlevels) then
     inctext:setText("+")
   elseif (level+1<=totlevels) then
@@ -2269,9 +2275,6 @@ function loadlevel()
     inctext:setText("")
   end
 
---   x,y=inclevel:getPosition()
---   centreAt(inctext,x,y)
-
   if (level-1>=-4) then
     if level-1<1 then
       dectext:setText("t"..(level-1+5))
@@ -2281,9 +2284,6 @@ function loadlevel()
   else
     dectext:setText("")
   end
-
---   x,y=declevel:getPosition()
---   centreAt(dectext,x,y)
 
   if (level+1<=upto or level==totlevels) then
     inclevel:setColorTransform(0,1,0)   -- green
@@ -2296,12 +2296,13 @@ function loadlevel()
   else
     declevel:setColorTransform(1,0,0)
   end
+  end
 
 ----------------------------------------------------------------------
 -- Set correct state for edit button
 ----------------------------------------------------------------------
 
-  if (not landscape) then
+  if (not landscape and not fromInternet) then
     if (edit) then
       editbutton:getChildAt(1):setVisible(false)
       editbutton:getChildAt(2):setVisible(false)
@@ -2345,10 +2346,12 @@ function loadlevel()
 
   if landscape then
     stage:addChildAt(pause,n)
-    stage:addChildAt(inclevel,n)
-    stage:addChildAt(declevel,n)
-    stage:addChildAt(inctext,n)
-    stage:addChildAt(dectext,n)
+	if not fromInternet then
+      stage:addChildAt(inclevel,n)
+      stage:addChildAt(declevel,n)
+      stage:addChildAt(inctext,n)
+      stage:addChildAt(dectext,n)
+	end
   end
 
   if (scrolling) then
@@ -2699,14 +2702,14 @@ function egolives()
   world:addEventListener(Event.BEGIN_CONTACT,collideBEGIN)
   world:addEventListener(Event.END_CONTACT,collideEND)
 
-  inclevel:addEventListener(Event.MOUSE_DOWN,nextlevel,inclevel)
-  declevel:addEventListener(Event.MOUSE_DOWN,prevlevel,declevel)
+  if inclevel then inclevel:addEventListener(Event.MOUSE_DOWN,nextlevel,inclevel) end
+  if declevel then declevel:addEventListener(Event.MOUSE_DOWN,prevlevel,declevel) end
 
   if pause then
     pause:addEventListener(Event.MOUSE_DOWN,onpause,pause)
   end
 
-  if (not landscape) then
+  if (not landscape and not fromInternet) then
     editbutton:addEventListener(Event.MOUSE_DOWN,onEdit,editbutton)
   end
 
@@ -2799,8 +2802,8 @@ function killlevel()
     stage:removeEventListener(Event.MOUSE_UP,  gtouchUP)
   end
 
-  inclevel:removeEventListener(Event.MOUSE_DOWN,nextlevel,inclevel)
-  declevel:removeEventListener(Event.MOUSE_DOWN,prevlevel,declevel)
+  if inclevel then inclevel:removeEventListener(Event.MOUSE_DOWN,nextlevel,inclevel) end
+  if declevel then declevel:removeEventListener(Event.MOUSE_DOWN,prevlevel,declevel) end
 
   if pause then
     pause:removeEventListener(Event.MOUSE_DOWN,onpause,pause)
@@ -3315,7 +3318,7 @@ function gtouchDOWN(type,event)
   end
 
   print ("os name=",osname)
-  if string.sub(osname,1,7)=="Windows" or osname=="Win32" then   -- windows, so no touch controls
+  if string.sub(osname,1,7)=="Windows" or osname=="Win32" or osname=="Mac OS" then   -- windows, so no touch controls
     print ("early return")
     return
   end
@@ -3409,7 +3412,7 @@ function MtouchDOWN(type,event)
     return
   end
 
-  if string.sub(osname,1,7)=="Windows" or osname=="Win32" then   -- windows, so no touch controls
+  if string.sub(osname,1,7)=="Windows" or osname=="Win32" or osname=="Mac OS" then   -- windows, so no touch controls
     return
   end
 
@@ -3495,7 +3498,7 @@ function main()
   ljbutton=display.newImage("upleft.png")
   rjbutton=display.newImage("upright.png")
 
-  if osname=="Windows" or osname=="Win32" then
+  if osname=="Windows" or osname=="Win32" or osname=="Mac OS" then
     lbutton:setAlpha(0)
     rbutton:setAlpha(0)
     ljbutton:setAlpha(0)

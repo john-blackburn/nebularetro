@@ -204,6 +204,10 @@ function menu_play(self,event)
 
     kill=display.newImage("x.png",450,290)
     kill:addEventListener(Event.MOUSE_DOWN,main_menu,kill)
+	
+	if not landscape then
+	  kill:setPosition(300,450)
+	end
 
   end
 end
@@ -242,6 +246,11 @@ function menu_edit(self,event)
 
     kill=display.newImage("x.png",450,290)
     kill:addEventListener(Event.MOUSE_DOWN,main_menu,kill)
+	
+	if not landscape then
+	  kill:setPosition(300,450)
+	end
+
   end
 end
 
@@ -276,7 +285,7 @@ function menu_options(self,event)
       menu:addChild(display.newGradRect(280,40, 255,0,0))
     end
 
-    if string.sub(osname,1,7)=="Windows" or osname=="Win32" then
+    if string.sub(osname,1,7)=="Windows" or osname=="Win32" or osname=="Mac OS" then
       menu:addChild(vtext(myfont,"REDEFINE KEYS"))
     else
       menu:addChild(vtext(myfont,"ADJUST CONTROLS"))
@@ -290,7 +299,7 @@ function menu_options(self,event)
 
     menu:addChild(vtext(myfont,"MUSIC: "..musicstat))
     menu:addChild(vtext(myfont,"SOUND FX: "..fxstat))
-    menu:addChild(vtext(myfont,"MANAGE LEVELS"))
+    menu:addChild(vtext(myfont,"CHOOSE LEVEL"))
     menu:addChild(vtext(myfont,"GRAPHICS: "..graphics))
 
     menu:addChild(vtext(myfont,"RESET GAME"))
@@ -315,7 +324,7 @@ function menu_options(self,event)
 
 --      m1:addEventListener(Event.MOUSE_DOWN,options_controls,m1)
 
-    if string.sub(osname,1,7)=="Windows" or osname=="Win32" then
+    if string.sub(osname,1,7)=="Windows" or osname=="Win32" or osname=="Mac OS" then
       m1:addEventListener(Event.MOUSE_DOWN,redefine_keys,m1)
     else
       m1:addEventListener(Event.MOUSE_DOWN,controls_set,m1)
@@ -423,7 +432,7 @@ function options_landscape(self,event)
 
     if (landscape) then
       application:setOrientation(Application.PORTRAIT)
-      if osname=="Windows" or osname=="Win32" then application:setWindowSize(320,480) end
+      if osname=="Windows" or osname=="Win32" or osname=="Mac OS" then application:setWindowSize(320,480) end
       landscape=false
       scrolling=false
       menu:getChildAt(noptions+2):setText("PORTRAIT")
@@ -436,7 +445,7 @@ function options_landscape(self,event)
 
     else
       application:setOrientation(Application.LANDSCAPE_LEFT)
-      if osname=="Windows" or osname=="Win32" then application:setWindowSize(640,960) end
+      if osname=="Windows" or osname=="Win32" or osname=="Mac OS" then application:setWindowSize(640,960) end
       landscape=true
       scrolling=true
       menu:getChildAt(noptions+2):setText("LANDSCAPE")
@@ -1057,7 +1066,6 @@ function options_manage(self,event)
 
     local yst=50
     local pitch=50
-    local ind
     local n=math.min(7,totlevels-ipos+1)
 
 -------------------------------------------------------
@@ -1067,7 +1075,7 @@ function options_manage(self,event)
 
    local changed={}
    for i=1,n do
-      ind=ipos+i-1
+      local ind=ipos+i-1
 	  if ind <=nlevels then
 	  local fh=io.open("level"..ind..".txt","r")
 	  local orig_contents=fh:read("*a")
@@ -1095,7 +1103,7 @@ function options_manage(self,event)
    
    names={}
    for i=1,n do
-     ind=ipos+i-1
+     local ind=ipos+i-1
 	 local fh=io.open("|D|level"..ind..".txt","r")
 	 names[ind]=fh:read("*line")
 	 fh:close()
@@ -1106,7 +1114,7 @@ function options_manage(self,event)
 ----------------------------------------------------------------------
 
     for i=1,n do
-      ind=ipos+i-1
+      local ind=ipos+i-1
       menu:addChild(display.newRect(220,40, 1,1,1))
       menu:getChildAt(i):addEventListener(Event.MOUSE_DOWN,gotolevel,menu:getChildAt(i))
 
@@ -1128,7 +1136,7 @@ function options_manage(self,event)
 ----------------------------------------------------------------------
 
     for i=1,n do
-      ind=ipos+i-1
+      local ind=ipos+i-1
 	  menu:addChild(vtext(myfont,names[ind]))
     end
 
@@ -1137,48 +1145,34 @@ function options_manage(self,event)
 ----------------------------------------------------------------------
 
     for i=1,n do
-      ind=ipos+i-1
+      local ind=ipos+i-1
       if (ind<upto or (upto==totlevels)) then
 	    local btn1,btn2,btn3=nil,nil,nil
+		local str
 
         if (ind<=nlevels) then
           if (changed[i]) then 
-		     btn1=display.newImage("reset.png")
-			 btn2=display.newImage("upload.png")
-			 btn3=display.newImage("edit.png")
+		     btn1=display.newImage("edit.png")
+			 str="Reset"
 		  end
         else
-          btn1=display.newImage("X-DeleteLevel.png")
-		  btn2=display.newImage("upload.png")
-		  btn3=display.newImage("edit.png")
+          btn1=display.newImage("edit.png")
+		  str="Delete"
         end
 		
 		if btn1 then
-		  btn1.level=ind
-          btn1:addEventListener(Event.MOUSE_DOWN,rmlevel,btn1)
-          btn1:setX(280)
+          btn1:addEventListener(Event.MOUSE_DOWN,
+		           function(self,event) 
+				   if self:hitTestPoint(event.x,event.y) then
+		              popup({names[ind]..":"},{"Rename","Upload",str,"Cancel"},
+					  {function() renameLevel(ind) end, function() uploadlevel(ind) end, function() rmlevel(ind) end,nil}) 
+				   end
+				   end,btn1)
+          btn1:setX(295)
           btn1:setY(yst+(i-1)*pitch)
 		  menu:addChild(btn1)
         end
 		
-		if btn2 then
-		  btn2.level=ind
-		  btn2:addEventListener(Event.MOUSE_DOWN,uploadlevel,btn2)
-		  btn2:setScale(0.5)
-          btn2:setX(240)
-          btn2:setY(yst+(i-1)*pitch)
-		  menu:addChild(btn2)
-		end
-		
-		if btn3 then
-		  btn3.level=ind
-		  btn3:addEventListener(Event.MOUSE_DOWN,renameLevel,btn3)
-		  btn3:setScale(0.5)
-          btn3:setX(320)
-          btn3:setY(yst+(i-1)*pitch)
-		  menu:addChild(btn3)
-		end
-
 	  end
     end
 	
@@ -1188,8 +1182,8 @@ function options_manage(self,event)
 
     for i=1,n do
       y=yst+(i-1)*pitch
-      menu:getChildAt(i):setPosition(100,y)
-      menu:getChildAt(i+n):setPosition(0,y+5)
+      menu:getChildAt(i):setPosition(screenw/2,y)
+      menu:getChildAt(i+n):setPosition(screenw/2-100,y+5)
       menu:getChildAt(i+n):setTextColor(0xffffff)
     end
 
@@ -1296,12 +1290,10 @@ end
 
 local levelGlobal
 
-function uploadlevel(self,event)
-  if self:hitTestPoint(event.x,event.y) then
-     levelGlobal=self.level
+function uploadlevel(level)
+     levelGlobal=level
 	 popup({"Really upload","level?","Are you sure?"},
            {"Upload","No way!"},{uploadConfirm,nil})
-   end
 end
 
 function uploadConfirm()
@@ -1333,14 +1325,12 @@ function uploadComplete(event)
   end
 end
 
-function renameLevel(self,event)
-  if self:hitTestPoint(event.x,event.y) then
-  	   levelGlobal=self.level
+function renameLevel(level)
+  	   levelGlobal=level
        local textInputDialog = TextInputDialog.new("Rename level", "Enter 3-13 chars: letters, numbers or spaces", 
 	         names[levelGlobal], "Cancel", "OK")
 	   textInputDialog:addEventListener(Event.COMPLETE, renameComplete)
        textInputDialog:show()
-  end
 end
 
 -- magic chars: []()+-*?.^$%
@@ -1366,9 +1356,8 @@ function renameComplete(event)
   end
 end
 
-function rmlevel(self,event)
-  if self:hitTestPoint(event.x,event.y) then
-        levelGlobal=self.level
+function rmlevel(level)
+        levelGlobal=level
         if (levelGlobal<=nlevels) then
 		  print ('reset level:',levelGlobal)
           popup({"Really reset","level?","Are you sure?"},
@@ -1378,9 +1367,6 @@ function rmlevel(self,event)
           popup({"Really delete","level?","Are you sure?"},
             {"Delete","No way!"},{rmComplete,nil})
         end
-
-    event:stopPropagation()
-  end
 end
 
 function rmComplete(event)  -- not a touch listener
@@ -1499,6 +1485,11 @@ function menu_credits(self,event)
 
     kill=display.newImage("x.png",450,290)
     kill:addEventListener(Event.MOUSE_DOWN,main_menu,kill)
+	
+	if not landscape then
+	  kill:setPosition(300,450)
+	end
+
 
   end
 end
@@ -1712,7 +1703,11 @@ function menu_internets_show(event)
   for i=1,#names do
     print (i,names[i])
   end
+  
+  menu_internets_show2()
+end
 
+function menu_internets_show2()
     if (menu) then
       menu:removeFromParent()
     end
@@ -1725,7 +1720,7 @@ function menu_internets_show(event)
     GTween.new(ego,time,{x=430,y=180})
 
     menu=Sprite.new()
-    menu.name="menu_internets_show"
+    menu.name="menu_internets_show2"
     stage:addChild(menu)
 
     local yst=50
@@ -1736,8 +1731,8 @@ function menu_internets_show(event)
       local ind=iposnet+i-1
 	  local y=yst+(i-1)*pitch
 
-	  local r=display.newRect(200,40, 0,206,11)
-	  r:setPosition(100,y)
+	  local r=display.newRect(220,40, 0,206,11)
+	  r:setPosition(screenw/2,y)
 	  r:addEventListener(Event.MOUSE_DOWN,menu_internets_select,r)
 	  r.name=names[ind]
       menu:addChild(r)
@@ -1746,7 +1741,7 @@ function menu_internets_show(event)
 	  s=string.gsub(s,"%.txt","")
 	  
 	  local t=vtext(myfont,s)
-	  t:setPosition(20,y+5)
+	  t:setPosition(screenw/2-100,y+5)
       t:setTextColor(0xffffff)
       menu:addChild(t)
     end
@@ -1765,7 +1760,46 @@ function menu_internets_show(event)
       menu:setScale(0.9)
       menu:setPosition(80,-20)
 	end
+	
+	menu:addChild(display.newImage("left.png",screenw-60,screenh-30))
+    local num=menu:getNumChildren()
+    menu:getChildAt(num):setScale(0.5,0.5)
+    menu:getChildAt(num):addEventListener(Event.MOUSE_DOWN,internetsprev,menu:getChildAt(num))
+
+    menu:addChild(display.newImage("right.png",screenw-20,screenh-30))
+    num=menu:getNumChildren()
+    menu:getChildAt(num):setScale(0.5,0.5)
+    menu:getChildAt(num):addEventListener(Event.MOUSE_DOWN,internetsnext,menu:getChildAt(num))
+	
+	if landscape then
+	  menu:getChildAt(num):setPosition(420,280)
+      menu:getChildAt(num-1):setPosition(360,280)
+	end
+
 end
+
+function internetsnext(self,event)
+
+  if self:hitTestPoint(event.x,event.y) then
+    if (iposnet<=#names-7) then
+      iposnet=iposnet+7
+      menu_internets_show2()
+    end
+  end
+
+end
+
+function internetsprev(self,event)
+
+  if self:hitTestPoint(event.x,event.y) then
+    if (iposnet>7) then
+      iposnet=iposnet-7
+      menu_internets_show2()
+    end
+  end
+
+end
+
 
 function menu_internets_select(self,event)
   if self:hitTestPoint(event.x,event.y) then
@@ -1791,6 +1825,9 @@ function downloadComplete(event)
   
   menu:removeFromParent()
   menu=nil
+  
+  kill:removeFromParent()
+  kill=nil
 
   menu_first=true
   stage:removeEventListener(Event.ENTER_FRAME, menu_update)
@@ -2063,11 +2100,11 @@ function readconfig(fh)
   if landscape then 
     scrolling=true 
     application:setOrientation(Application.LANDSCAPE_LEFT)
-    if osname=="Windows" or osname=="Win32" then application:setWindowSize(640,960) end
+    if osname=="Windows" or osname=="Win32" or osname=="Mac OS" then application:setWindowSize(640,960) end
   else
     scrolling=false
     application:setOrientation(Application.PORTRAIT)
-    if osname=="Windows" or osname=="Win32" then application:setWindowSize(320,480) end
+    if osname=="Windows" or osname=="Win32" or osname=="Mac OS" then application:setWindowSize(320,480) end
   end
 
   local x1,y1,x2,y2,x3,y3,x4,y4
@@ -2256,8 +2293,6 @@ end
 local activeKey
 
 function onKeyDown(event)
-
-  print ("keycode=",event.keyCode,menu)
 
   if menu and menu.name=="redefine_keys" then
     Keys[flashKey]=event.keyCode

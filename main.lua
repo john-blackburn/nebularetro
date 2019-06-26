@@ -1,6 +1,6 @@
 -- GIDEROS version
 -- edited with emacs
--- Runs on gideros 2016.4
+-- Runs on gideros 2019.4
 
 -- Also if "Windows" OS then we disable soft controls and there is
 -- a Redefine Keys menu instead of Adjust Controls
@@ -50,10 +50,10 @@ lbutton,rbutton,ljbutton,rjbutton=nil,nil,nil,nil
 editbutton=nil
 editbuttontext="edit"
 scene=nil
-scrolling=false
+scrolling=nil   -- always the same as landscape
+landscape=nil
 sscale=2
 egox_global,egoy_global=nil,nil
-landscape=true
 oldscenex,oldsceney=nil,nil
 zoom=nil
 zoomedOut=nil
@@ -85,7 +85,7 @@ level=1
 nlevels=26       -- normally 26
 totlevels=nil
 upto=nil
-demo=false
+demo=false       -- always false since we dont bother with demo version
 
 local collected,leveltxt
 
@@ -3263,7 +3263,7 @@ end
 
 activeID=nil
 
-function gtouchUP(event)
+function gtouchUP(event)    -- not used any more
   leftpressed=false
   rightpressed=false
 end
@@ -3277,7 +3277,7 @@ end
 
 --######################################################################
 
-function gtouchDOWN(type,event)
+function gtouchDOWN(type,event)  -- not used any more
 
   local x=event.x
   local y=event.y

@@ -1,22 +1,24 @@
 <project>
- <properties encryptAssets="0" html5_fbload="100" vsync="0" packageName="com.simpleinteractive.nebula" windowHeight="960" mouseToTouch="1" winrt_org="SimpleInteractive" html5_host="" orientation="1" splash_v_image="" app_name="" architecture="0" version_code="1" version="1.0" android_template="0" html5_fbinstant="0" html5_pack="0" html5_wasm="0" logicalWidth="320" splashScaleMode="0" html5_crash="" iosDevice="0" scaleMode="5" osx_category="5" backgroundColor="#ffffff" win_domain="giderosmobile.com" osx_signingId="" touchToMouse="1" exportMode="0" autorotation="0" app_icon="" logicalHeight="480" html5_symbols="0" osx_org="GiderosMobile" osx_bundle="com.yourdomain." build_number="1" osx_installerId="" fps="60" retinaDisplay="3" splash_h_image="" html5_mem="256" mouseTouchOrder="0" tv_icon="" disableSplash="0" winrt_package="com.simpleinteractive.nebula" ios_bundle="com.yourdomain." win_org="SimpleInteractive" windowWidth="640" encryptCode="0" osx_domain="giderosmobile.com">
+ <properties orientation="1" fps="60" encryptAssets="0" version="1.0" app_name="" html5_pack="0" osx_installerId="" iosDevice="0" splashScaleMode="0" backgroundColor="#ffffff" scaleMode="5" html5_wasm="0" retinaDisplay="3" html5_fbload="100" logicalHeight="480" html5_symbols="0" tv_icon="" ios_bundle="com.yourdomain." version_code="1" osx_bundle="com.yourdomain.nebula" packageName="com.simpleinteractive.nebula" html5_fbinstant="0" mouseTouchOrder="0" architecture="0" encryptCode="0" disableSplash="0" touchToMouse="1" winrt_org="SimpleInteractive" logicalWidth="320" windowWidth="640" splash_h_image="" exportMode="0" osx_signingId="" html5_mem="256" osx_domain="giderosmobile.com" vsync="0" app_icon="" osx_category="5" mouseToTouch="1" build_number="1" html5_crash="" windowHeight="960" html5_host="" winrt_package="com.simpleinteractive.nebula" autorotation="0" win_org="SimpleInteractive" osx_org="GiderosMobile" win_domain="giderosmobile.com" android_template="0" splash_v_image="">
   <imageScales>
    <scale suffix="@2x" scale="2"/>
   </imageScales>
-  <plugins/>
+  <plugins>
+   <plugin enabled="1" name="LiquidFun"/>
+  </plugins>
   <exports>
    <export name="APK">
-    <property name="androidPath" value=""/>
-    <property name="androidSdk" value=""/>
-    <property name="androidTarget" value="26"/>
-    <property name="androidTools" value=""/>
-    <property name="buildApk" value="1"/>
-    <property name="deployApk" value="0"/>
-    <property name="javaPath" value=""/>
-    <property name="keyAlias" value=""/>
-    <property name="keyStore" value=""/>
-    <property name="packageName" value="com.simpleinteractive.nebula"/>
-    <property name="timestampApk" value="0"/>
+    <property value="" name="androidPath"/>
+    <property value="" name="androidSdk"/>
+    <property value="26" name="androidTarget"/>
+    <property value="" name="androidTools"/>
+    <property value="1" name="buildApk"/>
+    <property value="0" name="deployApk"/>
+    <property value="" name="javaPath"/>
+    <property value="" name="keyAlias"/>
+    <property value="" name="keyStore"/>
+    <property value="com.simpleinteractive.nebula" name="packageName"/>
+    <property value="0" name="timestampApk"/>
    </export>
   </exports>
  </properties>

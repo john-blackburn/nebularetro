@@ -1,4 +1,4 @@
-Level 8
+The Chimney
 100 100
 ncoins
 18

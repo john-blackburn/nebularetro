@@ -2371,6 +2371,14 @@ function loadlevel()
     stage:addChild(demotext)
   end
 
+  local text=boldtext(myfont,levelName,0x0,0xffffff)  
+  if landscape then
+	text:setPosition(140,30)
+  else
+	text:setPosition(60,470)
+  end
+  stage:addChild(text)
+
 ----------------------------------------------------------------------
 -- Preload signtext texture if needed
 ----------------------------------------------------------------------

@@ -1,4 +1,4 @@
-Level 4
+Zig Zag
 229 331
 ncoins
 14

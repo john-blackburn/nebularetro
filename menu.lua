@@ -1115,20 +1115,19 @@ function options_manage(self,event)
 
     for i=1,n do
       local ind=ipos+i-1
-      menu:addChild(display.newRect(220,40, 1,1,1))
-      menu:getChildAt(i):addEventListener(Event.MOUSE_DOWN,gotolevel,menu:getChildAt(i))
 
       if (ind <= nlevels) then
         if (ind < upto or (upto==nlevels)) then
-          menu:getChildAt(i):setColorTransform(0,206,11)  -- green
+		    menu:addChild(display.newGradRect(220,40, 0,206,11))
         elseif (ind == upto) then
-          menu:getChildAt(i):setColorTransform(254,112,23)  -- orange
+		    menu:addChild(display.newGradRect(220,40, 254,112,23))
         else
-          menu:getChildAt(i):setColorTransform(255,0,0)  -- red
+		    menu:addChild(display.newGradRect(220,40, 255,0,0))
         end
       else
-        menu:getChildAt(i):setColorTransform(0,0,255)  -- blue
+	      menu:addChild(display.newGradRect(220,40, 0,0,255))
       end
+	  menu:getChildAt(i):addEventListener(Event.MOUSE_DOWN,gotolevel,menu:getChildAt(i))
     end
 
 ----------------------------------------------------------------------
@@ -1596,7 +1595,7 @@ function main_menu(self,event)
       menu:addChild(display.newImage("baddy8bit.png",0,0))
     end
 
-    menu:addChild(display.newGradRect(280,35, 255,0,0))
+    menu:addChild(display.newGradRect(280,35, 0,255,0))
     menu:addChild(display.newGradRect(280,35, 255,0,0))
     menu:addChild(display.newGradRect(280,35, 255,0,0))
     menu:addChild(display.newGradRect(280,35, 255,0,0))

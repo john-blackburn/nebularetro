@@ -1,4 +1,4 @@
-Tut 2
+Tutorial 2
 184 186
 ncoins
 3
